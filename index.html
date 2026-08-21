@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Situations complexes — Ressources des groupes de travail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   CHARTE AVOP
+   Rouge et noir relevés directement sur le logotype.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --rouge:#B50F01;
+  --noir:#0D0B0B;
+
+  --papier:#FAF9F8;
+  --surface:#FFFFFF;
+  --trait:#E4E0DE;
+  --sourdine:#6B6462;
+
+  --geo:"Outfit",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;background:var(--papier);color:var(--noir);
+  font-family:var(--serif);font-size:17px;line-height:1.55;
+  font-optical-sizing:auto;
+}
+:focus-visible{outline:2px solid var(--rouge);outline-offset:3px;border-radius:2px;}
+.enveloppe{max-width:980px;margin:0 auto;padding:0 26px;}
+
+/* ── Bandeau ───────────────────────────────────────────────── */
+.bandeau{padding:30px 0 40px;}
+.logo{display:block;width:132px;height:auto;margin:0 0 40px;}
+.surtitre{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--rouge);margin:0 0 16px;
+}
+.bandeau h1{
+  font-family:var(--geo);font-weight:200;
+  font-size:clamp(2.5rem,8vw,4.6rem);line-height:.97;
+  letter-spacing:-.028em;margin:0 0 20px;max-width:14ch;
+}
+.chapo{margin:0;max-width:52ch;color:var(--sourdine);font-size:1.04rem;}
+
+/* Le filet reprend le dégradé du logotype, du rouge vers le noir. */
+.filet{height:3px;border:0;margin:0;background:linear-gradient(90deg,var(--rouge) 0%,var(--rouge) 22%,var(--noir) 68%,var(--noir) 100%);}
+
+/* ── Recherche ─────────────────────────────────────────────── */
+.recherche{margin-top:30px;position:relative;max-width:400px;}
+.recherche input{
+  width:100%;font-family:var(--serif);font-size:16px;color:var(--noir);
+  background:var(--surface);border:1px solid var(--trait);
+  border-radius:2px;padding:11px 14px 11px 38px;
+}
+.recherche input::placeholder{color:#9C9694;}
+.recherche input:focus{border-color:var(--rouge);}
+.recherche > svg{
+  position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;stroke:#9C9694;fill:none;stroke-width:1.6;
+}
+
+/* ── Onglets ───────────────────────────────────────────────── */
+.barre-onglets{background:var(--papier);border-bottom:1px solid var(--trait);position:sticky;top:0;z-index:10;}
+.onglets{display:flex;overflow-x:auto;scrollbar-width:none;margin:0;padding:0;list-style:none;}
+.onglets::-webkit-scrollbar{display:none;}
+.onglet{
+  font-family:var(--geo);font-weight:400;font-size:15px;letter-spacing:-.005em;
+  color:var(--sourdine);background:none;border:none;
+  border-bottom:2px solid transparent;padding:15px 20px 12px;
+  white-space:nowrap;cursor:pointer;
+  transition:color .2s ease,border-color .2s ease;
+}
+.onglet:hover{color:var(--noir);}
+.onglet[aria-selected="true"]{color:var(--rouge);border-bottom-color:var(--rouge);font-weight:500;}
+.onglet .compte{font-family:var(--mono);font-size:11px;margin-left:8px;opacity:.55;}
+
+/* ── Panneau ───────────────────────────────────────────────── */
+main{padding:44px 0 76px;}
+.intro-gt{margin:0 0 32px;max-width:60ch;}
+.intro-gt h2{
+  font-family:var(--geo);font-weight:300;font-size:1.85rem;
+  letter-spacing:-.022em;margin:0 0 10px;line-height:1.15;
+}
+.intro-gt p{margin:0;color:var(--sourdine);}
+
+.liste{list-style:none;margin:0;padding:0;border-top:1px solid var(--trait);}
+
+.ressource{
+  display:flex;gap:17px;align-items:flex-start;
+  text-decoration:none;color:inherit;
+  padding:19px 16px 19px 14px;
+  border-bottom:1px solid var(--trait);
+  border-left:2px solid transparent;
+  background:transparent;
+  transition:background .16s ease,border-left-color .16s ease,padding-left .16s ease;
+}
+.ressource:hover{background:var(--surface);border-left-color:var(--rouge);padding-left:18px;}
+
+.pictogramme{flex:0 0 24px;height:24px;margin-top:3px;}
+.pictogramme svg{width:24px;height:24px;stroke:var(--noir);fill:none;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;transition:stroke .16s ease;}
+.ressource:hover .pictogramme svg{stroke:var(--rouge);}
+
+.corps{min-width:0;}
+.meta{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--sourdine);margin-bottom:7px;
+}
+.meta .genre{color:var(--rouge);font-weight:500;}
+.meta .separateur{opacity:.4;}
+.ressource h3{
+  font-family:var(--geo);font-weight:400;font-size:1.16rem;
+  line-height:1.28;margin:0 0 5px;letter-spacing:-.014em;
+}
+.ressource p{margin:0;font-size:.94rem;color:var(--sourdine);max-width:68ch;}
+
+.vide{padding:44px 16px;color:var(--sourdine);border-bottom:1px solid var(--trait);}
+.vide strong{display:block;font-family:var(--geo);font-weight:400;font-size:1.1rem;color:var(--noir);margin-bottom:5px;}
+
+footer{padding:34px 0 52px;font-size:.88rem;color:var(--sourdine);}
+footer p{margin:0 0 7px;max-width:62ch;}
+.mention{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--rouge);}
+
+@media (max-width:600px){
+  body{font-size:16px;}
+  .enveloppe{padding:0 18px;}
+  .bandeau{padding:24px 0 32px;}
+  .logo{width:104px;margin-bottom:30px;}
+  .onglet{padding:14px 15px 11px;font-size:14px;}
+  .ressource{padding:17px 10px 17px 12px;gap:14px;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+.apparait{animation:monter .26s ease both;}
+@keyframes monter{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+</style>
+</head>
+
+<body>
+
+<header class="bandeau">
+  <div class="enveloppe">
+    <img class="logo" src="data:image/jpeg;base64,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" alt="AVOP">
+    <p class="surtitre">Dispositif cantonal</p>
+    <h1>Situations complexes</h1>
+    <p class="chapo">Les travaux des groupes de travail, réunis en un seul endroit. Documents à lire, vidéos à regarder, présentations à parcourir.</p>
+    <div class="recherche">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="recherche" placeholder="Chercher dans toutes les ressources" aria-label="Chercher dans toutes les ressources">
+    </div>
+  </div>
+</header>
+
+<hr class="filet">
+
+<div class="barre-onglets">
+  <div class="enveloppe">
+    <ul class="onglets" role="tablist" id="onglets"></ul>
+  </div>
+</div>
+
+<main>
+  <div class="enveloppe">
+    <div id="intro"></div>
+    <ul class="liste" id="liste"></ul>
+  </div>
+</main>
+
+<footer>
+  <div class="enveloppe">
+    <p class="mention">Documents de travail</p>
+    <p>Ces ressources sont destinées aux membres des groupes de travail du dispositif cantonal. Merci de ne pas les diffuser au-delà de ce cercle.</p>
+    <p>Une ressource manque ou un lien ne fonctionne pas ? Écrivez au pôle FRDI de l&rsquo;AVOP.</p>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   ZONE À MODIFIER
+
+   Pour ajouter une ressource, copiez une ligne du tableau
+   RESSOURCES et changez les valeurs.
+
+   genre   "document", "video", "presentation" ou "lien"
+   date    affichée telle quelle, par exemple "mai 2026"
+   titre   nom de la ressource, tel qu'il doit apparaître
+   texte   une phrase qui dit ce que la personne y trouvera
+   duree   facultatif, pour les vidéos et les présentations
+   lien    adresse du fichier, de la vidéo ou de la page
+
+   OÙ METTRE LES FICHIERS
+   Documents PDF : déposez-les dans le dossier /public du projet,
+   puis mettez "/nom-du-fichier.pdf" comme lien.
+
+   Vidéos : mettez-les sur YouTube en mode non répertorié ou sur
+   Vimeo, et collez le lien. N'hébergez pas les fichiers vidéo
+   sur le site, ils sont trop lourds.
+
+   PowerPoint animés : le plus fiable est de les exporter en vidéo
+   depuis PowerPoint (Fichier, Exporter, Créer une vidéo), puis de
+   les déposer sur YouTube. Les animations et les minutages sont
+   conservés, et la personne n'a besoin ni de PowerPoint ni d'un
+   compte. Si vous tenez à garder le fichier cliquable, déposez le
+   .pptx dans /public, mais les collaborateurs sans PowerPoint ne
+   verront pas les animations.
+   ═══════════════════════════════════════════════════════════════ */
+
+const GROUPES = [
+  { id:"mima", nom:"Transition MiMa",
+    intro:"Les travaux sur le passage entre le dispositif mineurs et le dispositif majeurs, et sur ce qui se transmet à ce moment-là." },
+  { id:"penibilite", nom:"Pénibilité au travail",
+    intro:"Les mesures de réduction de la pénibilité pour les équipes qui accompagnent des situations complexes." },
+  { id:"violence", nom:"Accompagnement et violence",
+    intro:"Le concept d'accompagnement et la gestion des situations de violence, du cadre de référence aux pratiques de terrain." },
+  { id:"formation", nom:"Formation",
+    intro:"Les besoins de formation identifiés, les contenus développés et les offres mises à disposition des institutions." }
+];
+
+const RESSOURCES = [
+  /* Exemples à remplacer par vos vraies ressources. */
+  { gt:"mima", genre:"document", date:"mai 2026",
+    titre:"Note de cadrage du groupe de travail",
+    texte:"Le mandat, la composition et le calendrier des travaux.", lien:"#" },
+  { gt:"mima", genre:"presentation", date:"juin 2026", duree:"12 min",
+    titre:"Le parcours de transition, pas à pas",
+    texte:"Présentation animée du passage d'un dispositif à l'autre.", lien:"#" },
+
+  { gt:"penibilite", genre:"document", date:"avril 2026",
+    titre:"État des lieux de la pénibilité dans les unités",
+    texte:"Synthèse des constats remontés par les institutions participantes.", lien:"#" },
+  { gt:"penibilite", genre:"video", date:"juin 2026", duree:"18 min",
+    titre:"Restitution au comité de pilotage",
+    texte:"Les premières pistes de mesures, présentées et commentées.", lien:"#" },
+
+  { gt:"violence", genre:"document", date:"mars 2026",
+    titre:"Concept d'accompagnement, version de travail",
+    texte:"Le document de référence en cours d'élaboration, ouvert aux retours.", lien:"#" },
+  { gt:"violence", genre:"video", date:"mai 2026", duree:"20 min",
+    titre:"Retour d'expérience d'une unité pilote",
+    texte:"Une équipe raconte comment elle traverse les moments de tension.", lien:"#" },
+
+  { gt:"formation", genre:"document", date:"février 2026",
+    titre:"Recensement des besoins de formation",
+    texte:"Ce que les équipes disent avoir besoin d'apprendre, par domaine.", lien:"#" },
+  { gt:"formation", genre:"lien", date:"mis à jour en continu",
+    titre:"Catalogue des formations disponibles",
+    texte:"Les offres ouvertes aux collaborateurs des institutions membres.", lien:"#" }
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   À PARTIR D'ICI, RIEN À MODIFIER
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Pictogrammes tracés au même trait fin que le logotype. */
+const GENRES = {
+  document:{ libelle:"Document",
+    picto:'<path d="M5.5 2.5h8.2L18.5 7v14.5h-13z"/><path d="M13.5 2.6V7.2h4.8"/><path d="M8.6 12h6.8M8.6 15.6h6.8M8.6 8.6h3"/>' },
+  video:{ libelle:"Vidéo",
+    picto:'<circle cx="12" cy="12" r="9.2"/><path d="M10.1 8.4l6 3.6-6 3.6z"/>' },
+  presentation:{ libelle:"Présentation animée",
+    picto:'<rect x="2.8" y="4.2" width="18.4" height="12.2" rx="1.2"/><path d="M12 16.4v4.2M8.4 20.6h7.2"/><circle cx="9" cy="10.3" r="1.5"/><path d="M12.4 10.3h4.6"/>' },
+  lien:{ libelle:"Lien",
+    picto:'<path d="M10.2 13.4a4.6 4.6 0 0 0 6.5 0l2.8-2.8a4.6 4.6 0 0 0-6.5-6.5l-1 1"/><path d="M13.8 10.6a4.6 4.6 0 0 0-6.5 0l-2.8 2.8a4.6 4.6 0 0 0 6.5 6.5l1-1"/>' }
+};
+
+const elOnglets = document.getElementById("onglets");
+const elIntro = document.getElementById("intro");
+const elListe = document.getElementById("liste");
+const elRecherche = document.getElementById("recherche");
+
+let actif = GROUPES[0].id;
+
+function groupeDe(id){ return GROUPES.find(function(g){ return g.id === id; }); }
+
+function construireOnglets(){
+  elOnglets.innerHTML = "";
+  GROUPES.forEach(function(g){
+    const li = document.createElement("li");
+    li.setAttribute("role","presentation");
+    const b = document.createElement("button");
+    b.className = "onglet";
+    b.type = "button";
+    b.setAttribute("role","tab");
+    b.id = "onglet-" + g.id;
+    const nb = RESSOURCES.filter(function(r){ return r.gt === g.id; }).length;
+    b.innerHTML = g.nom + '<span class="compte">' + nb + "</span>";
+    b.addEventListener("click", function(){ elRecherche.value = ""; choisir(g.id); });
+    b.addEventListener("keydown", naviguerAuClavier);
+    li.appendChild(b);
+    elOnglets.appendChild(li);
+  });
+}
+
+function naviguerAuClavier(e){
+  if(e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+  e.preventDefault();
+  const i = GROUPES.findIndex(function(g){ return g.id === actif; });
+  const j = e.key === "ArrowRight" ? (i+1) % GROUPES.length : (i-1+GROUPES.length) % GROUPES.length;
+  elRecherche.value = "";
+  choisir(GROUPES[j].id);
+  document.getElementById("onglet-" + GROUPES[j].id).focus();
+}
+
+function majOnglets(){
+  const cherche = elRecherche.value.trim() !== "";
+  GROUPES.forEach(function(g){
+    document.getElementById("onglet-" + g.id)
+      .setAttribute("aria-selected", (g.id === actif && !cherche) ? "true" : "false");
+  });
+}
+
+function carte(r, avecOrigine){
+  const g = groupeDe(r.gt);
+  const genre = GENRES[r.genre] || GENRES.document;
+  const li = document.createElement("li");
+  const a = document.createElement("a");
+  a.className = "ressource apparait";
+  a.href = r.lien || "#";
+  if(r.lien && /^https?:/.test(r.lien)){ a.target = "_blank"; a.rel = "noopener"; }
+
+  let meta = '<span class="genre">' + genre.libelle + "</span>";
+  meta += '<span class="separateur">/</span><span>' + r.date + "</span>";
+  if(r.duree){ meta += '<span class="separateur">/</span><span>' + r.duree + "</span>"; }
+  if(avecOrigine && g){ meta += '<span class="separateur">/</span><span>' + g.nom + "</span>"; }
+
+  a.innerHTML =
+    '<span class="pictogramme" aria-hidden="true"><svg viewBox="0 0 24 24">' + genre.picto + "</svg></span>" +
+    '<span class="corps"><span class="meta">' + meta + "</span>" +
+    "<h3>" + r.titre + "</h3><p>" + r.texte + "</p></span>";
+  li.appendChild(a);
+  return li;
+}
+
+function afficherVide(titre, detail){
+  elListe.innerHTML = "";
+  const li = document.createElement("li");
+  li.className = "vide";
+  li.innerHTML = "<strong>" + titre + "</strong>" + detail;
+  elListe.appendChild(li);
+}
+
+function rendre(){
+  const q = elRecherche.value.trim().toLowerCase();
+  majOnglets();
+
+  if(q){
+    const trouves = RESSOURCES.filter(function(r){
+      const lib = GENRES[r.genre] ? GENRES[r.genre].libelle : "";
+      return (r.titre + " " + r.texte + " " + lib).toLowerCase().indexOf(q) !== -1;
+    });
+    elIntro.innerHTML = '<div class="intro-gt"><h2>Résultats</h2><p>' +
+      trouves.length + (trouves.length > 1 ? " ressources correspondent" : " ressource correspond") +
+      " à votre recherche, tous groupes confondus.</p></div>";
+    elListe.innerHTML = "";
+    if(!trouves.length){
+      afficherVide("Aucune ressource ne correspond","Essayez un mot plus court, ou parcourez les groupes de travail.");
+      return;
+    }
+    trouves.forEach(function(r){ elListe.appendChild(carte(r, true)); });
+    return;
+  }
+
+  const g = groupeDe(actif);
+  elIntro.innerHTML = '<div class="intro-gt"><h2>' + g.nom + "</h2><p>" + g.intro + "</p></div>";
+  elListe.innerHTML = "";
+  const items = RESSOURCES.filter(function(r){ return r.gt === g.id; });
+  if(!items.length){
+    afficherVide("Pas encore de ressource ici","Les documents de ce groupe seront déposés au fil des séances.");
+    return;
+  }
+  items.forEach(function(r){ elListe.appendChild(carte(r, false)); });
+}
+
+function choisir(id){ actif = id; rendre(); }
+
+elRecherche.addEventListener("input", rendre);
+construireOnglets();
+rendre();
+</script>
+
+</body>
+</html>
