@@ -1,0 +1,24 @@
+{
+  "groupes": [
+    {
+      "id": "mima",
+      "nom": "Transition MiMa",
+      "intro": "Les travaux sur le passage entre le dispositif mineurs et le dispositif majeurs, et sur ce qui se transmet à ce moment-là."
+    },
+    {
+      "id": "penibilite",
+      "nom": "Pénibilité au travail",
+      "intro": "Les mesures de réduction de la pénibilité pour les équipes qui accompagnent des situations complexes."
+    },
+    {
+      "id": "violence",
+      "nom": "Concept d’accompagnement et gestion de la violence",
+      "intro": "Le cadre de référence et les outils pour prévenir, désamorcer et suivre les situations de violence, construits avec professionnel·les de terrain, directions, secteur socio-sanitaire et représentant·es des familles."
+    },
+    {
+      "id": "formation",
+      "nom": "Formation",
+      "intro": "Les catalogues de formation continue mis à disposition des institutions, des bases sur l’autisme aux modules certifiants sur les comportements-défis et la violence interpersonnelle."
+    }
+  ]
+}

@@ -1,7 +1,5 @@
 const { requireAuth } = require('./_lib/auth');
-const { getFile, putFile } = require('./_lib/github');
-
-const DATA_PATH = 'data/ressources.json';
+const { dbInsert, dbUpdate, dbDelete } = require('./_lib/supabase');
 
 const DIACRITICS = new RegExp('[̀-ͯ]', 'g');
 
@@ -25,24 +23,30 @@ function validate(body) {
   return errors;
 }
 
+function toRow(body) {
+  return {
+    gt: body.gt,
+    genre: body.genre,
+    origine: body.origine,
+    date: body.date || '',
+    duree: body.duree || null,
+    titre: body.titre.trim(),
+    texte: body.texte || '',
+    lien: body.lien.trim(),
+  };
+}
+
 module.exports = async (req, res) => {
   if (!requireAuth(req, res)) return;
 
   if (req.method === 'GET') {
     // Sert uniquement à vérifier qu'une session valide existe (l'admin lit
-    // les ressources publiques directement depuis data/ressources.json).
+    // les ressources publiques directement depuis Supabase).
     res.status(200).json({ ok: true });
     return;
   }
 
   try {
-    const current = await getFile(DATA_PATH);
-    if (!current) {
-      res.status(500).json({ error: 'data/ressources.json introuvable dans le dépôt.' });
-      return;
-    }
-    const data = JSON.parse(current.text);
-
     if (req.method === 'POST') {
       const body = req.body || {};
       const errors = validate(body);
@@ -51,20 +55,7 @@ module.exports = async (req, res) => {
         return;
       }
       const id = `${slugify(body.gt)}-${slugify(body.titre)}-${Date.now().toString(36)}`;
-      const resource = {
-        id,
-        gt: body.gt,
-        genre: body.genre,
-        origine: body.origine,
-        date: body.date || '',
-        ...(body.duree ? { duree: body.duree } : {}),
-        titre: body.titre.trim(),
-        texte: body.texte || '',
-        lien: body.lien.trim(),
-      };
-      data.ressources.push(resource);
-      const content = Buffer.from(JSON.stringify(data, null, 2) + '\n').toString('base64');
-      await putFile(DATA_PATH, content, `Admin : ajoute « ${resource.titre} »`, current.sha);
+      const resource = await dbInsert({ id, ...toRow(body) });
       res.status(201).json({ ok: true, resource });
       return;
     }
@@ -80,25 +71,11 @@ module.exports = async (req, res) => {
         res.status(400).json({ error: errors.join(' ') });
         return;
       }
-      const idx = data.ressources.findIndex((r) => r.id === body.id);
-      if (idx === -1) {
+      const resource = await dbUpdate(body.id, toRow(body));
+      if (!resource) {
         res.status(404).json({ error: 'Ressource introuvable.' });
         return;
       }
-      const resource = {
-        id: body.id,
-        gt: body.gt,
-        genre: body.genre,
-        origine: body.origine,
-        date: body.date || '',
-        ...(body.duree ? { duree: body.duree } : {}),
-        titre: body.titre.trim(),
-        texte: body.texte || '',
-        lien: body.lien.trim(),
-      };
-      data.ressources[idx] = resource;
-      const content = Buffer.from(JSON.stringify(data, null, 2) + '\n').toString('base64');
-      await putFile(DATA_PATH, content, `Admin : modifie « ${resource.titre} »`, current.sha);
       res.status(200).json({ ok: true, resource });
       return;
     }
@@ -109,14 +86,11 @@ module.exports = async (req, res) => {
         res.status(400).json({ error: 'id manquant.' });
         return;
       }
-      const before = data.ressources.length;
-      data.ressources = data.ressources.filter((r) => r.id !== id);
-      if (data.ressources.length === before) {
+      const deleted = await dbDelete(id);
+      if (!deleted) {
         res.status(404).json({ error: 'Ressource introuvable.' });
         return;
       }
-      const content = Buffer.from(JSON.stringify(data, null, 2) + '\n').toString('base64');
-      await putFile(DATA_PATH, content, `Admin : supprime la ressource ${id}`, current.sha);
       res.status(200).json({ ok: true });
       return;
     }

@@ -162,10 +162,13 @@ function entrerAdmin(){
   chargerDonnees();
 }
 
+let CONFIG=null;
+
 async function chargerDonnees(){
-  const res=await fetch('data/ressources.json',{cache:'no-store'});
-  const data=await res.json();
-  GROUPES=data.groupes;RESOURCES=data.ressources;
+  CONFIG=await fetch('data/config.json',{cache:'no-store'}).then(r=>r.json());
+  const groupesData=await fetch('data/groupes.json',{cache:'no-store'}).then(r=>r.json());
+  GROUPES=groupesData.groupes;
+  RESOURCES=await fetch(`${CONFIG.supabaseUrl}/rest/v1/ressources?select=*`,{headers:{apikey:CONFIG.supabaseAnonKey,Authorization:`Bearer ${CONFIG.supabaseAnonKey}`}}).then(r=>r.json());
   const sel=$('r-gt');sel.innerHTML=GROUPES.map(g=>`<option value="${g.id}">${g.nom}</option>`).join('');
   rendreListe();
 }
