@@ -61,8 +61,7 @@ footer{border-top:1px solid var(--trait);padding:32px 0 54px;color:var(--sourdin
 <footer><div class="enveloppe"><p class="mention">Dispositif cantonal</p><p>Ce site présente le dispositif situations complexes et les travaux des groupes de travail qui le composent, à l'attention des professionnel·les des institutions sociales vaudoises concernées.</p><p>Une question sur le dispositif ? Écrivez au pôle FRDI de l'AVOP.</p></div></footer>
 
 <script>
-const GROUPES=[{id:'mima',nom:'Transition MiMa',intro:'Les travaux sur le passage entre le dispositif mineurs et le dispositif majeurs, et sur ce qui se transmet à ce moment-là.'},{id:'penibilite',nom:'Pénibilité au travail',intro:'Les mesures de réduction de la pénibilité pour les équipes qui accompagnent des situations complexes.'},{id:'violence',nom:'Concept d’accompagnement et gestion de la violence',intro:'Le cadre de référence et les outils pour prévenir, désamorcer et suivre les situations de violence, construits avec professionnel·les de terrain, directions, secteur socio-sanitaire et représentant·es des familles.'},{id:'formation',nom:'Formation',intro:'Les catalogues de formation continue mis à disposition des institutions, des bases sur l’autisme aux modules certifiants sur les comportements-défis et la violence interpersonnelle.'}];
 const grille=document.getElementById('grille-gt');
-GROUPES.forEach(g=>{const a=document.createElement('a');a.className='carte-gt';a.href=`ressources.html?gt=${g.id}`;a.innerHTML=`<h3>${g.nom}<span>↗</span></h3><p>${g.intro}</p>`;grille.appendChild(a)});
+fetch('data/ressources.json').then(r=>r.json()).then(d=>{d.groupes.forEach(g=>{const a=document.createElement('a');a.className='carte-gt';a.href=`ressources.html?gt=${g.id}`;a.innerHTML=`<h3>${g.nom}<span>↗</span></h3><p>${g.intro}</p>`;grille.appendChild(a)})});
 </script>
 </body></html>

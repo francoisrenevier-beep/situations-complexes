@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Administration — Situations complexes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--rouge:#b50f01;--noir:#0d0b0b;--papier:#f8f7f5;--surface:#fff;--trait:#e2dedb;--sourdine:#6b6462;--geo:"Inter",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--papier);color:var(--noir);font:15px/1.5 var(--geo)}button,input,select,textarea{font:inherit}:focus-visible{outline:3px solid var(--rouge);outline-offset:2px}
+.enveloppe{max-width:920px;margin:auto;padding:0 24px}
+header{background:var(--surface);border-bottom:1px solid var(--trait);padding:20px 0}
+.entete{display:flex;align-items:center;justify-content:space-between}
+.marque{display:flex;align-items:center;gap:12px}.logo-avop{height:40px;width:auto}
+.marque strong{font:600 15px var(--geo)}
+nav a{color:var(--sourdine);text-decoration:none;font-size:13px;margin-left:18px}nav a:hover{color:var(--rouge)}
+main{padding:36px 0 80px}
+h1{font:600 1.6rem/1.2 var(--geo);margin:0 0 6px}
+.souscription{color:var(--sourdine);margin:0 0 28px}
+.carte{background:var(--surface);border:1px solid var(--trait);border-radius:6px;padding:24px;margin-bottom:24px}
+.champ{margin-bottom:16px}
+.champ label{display:block;font:500 12px var(--geo);letter-spacing:.02em;margin-bottom:6px;color:var(--sourdine)}
+.champ input[type=text],.champ input[type=password],.champ input[type=url],.champ select,.champ textarea{width:100%;border:1px solid var(--trait);border-radius:4px;padding:9px 11px;background:var(--papier);color:var(--noir)}
+.champ textarea{min-height:70px;resize:vertical}
+.grille2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grille3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.bouton{display:inline-flex;align-items:center;gap:8px;background:var(--noir);color:#fff;border:0;border-radius:4px;padding:10px 18px;font:500 14px var(--geo);cursor:pointer}
+.bouton:hover{background:var(--rouge)}
+.bouton.secondaire{background:none;color:var(--noir);border:1px solid var(--trait)}
+.bouton.secondaire:hover{background:var(--papier);color:var(--rouge);border-color:var(--rouge)}
+.bouton.danger{background:none;color:var(--rouge);border:1px solid var(--trait)}
+.bouton.danger:hover{background:#fdecea;border-color:var(--rouge)}
+.bouton[disabled]{opacity:.5;cursor:default}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.message{border-radius:4px;padding:10px 14px;font-size:13.5px;margin-bottom:16px}
+.message.erreur{background:#fdecea;color:#8a1c12}
+.message.ok{background:#e9f6ec;color:#1e6b32}
+.groupe-bloc{margin-bottom:32px}
+.groupe-bloc h2{font:600 1.05rem var(--geo);margin:0 0 4px}
+.groupe-bloc .nb{color:var(--sourdine);font-size:12.5px;margin:0 0 12px}
+.ressource-ligne{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--trait)}
+.ressource-ligne:last-child{border-bottom:0}
+.ressource-corps{flex:1;min-width:0}
+.ressource-corps .meta{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--sourdine);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:3px}
+.ressource-corps .meta .badge{border:1px solid var(--trait);border-radius:20px;padding:0 8px}
+.ressource-corps h3{font:500 1rem var(--geo);margin:0 0 3px}
+.ressource-corps p{margin:0;color:var(--sourdine);font-size:13px}
+.ressource-corps a{color:var(--rouge);font-size:12px;word-break:break-all}
+.login-cadre{max-width:360px;margin:80px auto 0}
+.masque{display:none}
+.upload-etat{font-size:12.5px;color:var(--sourdine);margin-top:6px}
+</style>
+</head>
+<body>
+
+<header><div class="enveloppe entete">
+<div class="marque"><img class="logo-avop" src="assets/AVOP-logo.jpg" alt="AVOP"><strong>Administration des ressources</strong></div>
+<nav><a href="ressources.html">Voir le site public →</a> <a href="#" id="lien-deconnexion" class="masque">Se déconnecter</a></nav>
+</div></header>
+
+<main class="enveloppe">
+
+<section id="ecran-connexion">
+  <div class="carte login-cadre">
+    <h1>Connexion</h1>
+    <p class="souscription">Accès réservé à l'administration du dispositif situations complexes.</p>
+    <div id="message-connexion"></div>
+    <form id="form-connexion">
+      <div class="champ"><label for="mdp">Mot de passe</label><input type="password" id="mdp" name="password" autocomplete="current-password" required></div>
+      <button class="bouton" type="submit">Se connecter</button>
+    </form>
+  </div>
+</section>
+
+<section id="ecran-admin" class="masque">
+  <h1>Ressources des groupes de travail</h1>
+  <p class="souscription">Ajoutez, modifiez ou supprimez les documents et liens publiés sur le site. Les changements sont mis en ligne automatiquement (~1 minute).</p>
+  <div id="message-admin"></div>
+
+  <div class="carte">
+    <h2 id="titre-formulaire" style="margin:0 0 16px;font:600 1.05rem var(--geo)">Ajouter une ressource</h2>
+    <form id="form-ressource">
+      <input type="hidden" id="r-id">
+      <div class="grille3">
+        <div class="champ"><label for="r-gt">Groupe de travail</label><select id="r-gt" required></select></div>
+        <div class="champ"><label for="r-genre">Genre</label>
+          <select id="r-genre" required>
+            <option value="document">Document</option>
+            <option value="video">Vidéo</option>
+            <option value="presentation">Présentation</option>
+            <option value="lien">Lien utile</option>
+          </select>
+        </div>
+        <div class="champ"><label for="r-origine">Origine</label>
+          <select id="r-origine" required>
+            <option value="gt">Produite par le GT</option>
+            <option value="externe">Ressource externe</option>
+          </select>
+        </div>
+      </div>
+      <div class="champ"><label for="r-titre">Titre</label><input type="text" id="r-titre" required></div>
+      <div class="champ"><label for="r-texte">Description courte</label><textarea id="r-texte"></textarea></div>
+      <div class="grille2">
+        <div class="champ"><label for="r-date">Date</label><input type="text" id="r-date" placeholder="ex. février 2026"></div>
+        <div class="champ"><label for="r-duree">Durée (vidéo/présentation, optionnel)</label><input type="text" id="r-duree" placeholder="ex. 12 min"></div>
+      </div>
+      <div class="champ">
+        <label for="r-lien">Lien</label>
+        <input type="text" id="r-lien" placeholder="https://… ou déposez un fichier ci-dessous" required>
+        <input type="file" id="r-fichier" accept=".pdf,.xlsx,.xls,.docx,.doc,.pptx,.ppt" style="margin-top:8px">
+        <div class="upload-etat" id="upload-etat"></div>
+      </div>
+      <div class="actions">
+        <button class="bouton" type="submit" id="bouton-enregistrer">Ajouter la ressource</button>
+        <button class="bouton secondaire masque" type="button" id="bouton-annuler">Annuler la modification</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="liste-groupes"></div>
+</section>
+
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+let RESOURCES=[],GROUPES=[];
+
+function afficherMessage(zone,texte,type){zone.innerHTML=texte?`<div class="message ${type}">${texte}</div>`:'';}
+
+async function appel(url,options){
+  const res=await fetch(url,{credentials:'same-origin',headers:{'Content-Type':'application/json'},...options});
+  let body={};
+  try{body=await res.json()}catch{}
+  if(!res.ok) throw new Error(body.error||`Erreur (${res.status})`);
+  return body;
+}
+
+// --- Connexion ---
+$('form-connexion').addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  const msg=$('message-connexion');afficherMessage(msg,'','');
+  try{
+    await appel('/api/login',{method:'POST',body:JSON.stringify({password:$('mdp').value})});
+    $('mdp').value='';
+    entrerAdmin();
+  }catch(err){afficherMessage(msg,err.message,'erreur')}
+});
+$('lien-deconnexion').addEventListener('click',async(e)=>{
+  e.preventDefault();
+  await fetch('/api/logout',{method:'POST',credentials:'same-origin'});
+  location.reload();
+});
+
+function entrerAdmin(){
+  $('ecran-connexion').classList.add('masque');
+  $('ecran-admin').classList.remove('masque');
+  $('lien-deconnexion').classList.remove('masque');
+  chargerDonnees();
+}
+
+async function chargerDonnees(){
+  const res=await fetch('data/ressources.json',{cache:'no-store'});
+  const data=await res.json();
+  GROUPES=data.groupes;RESOURCES=data.ressources;
+  const sel=$('r-gt');sel.innerHTML=GROUPES.map(g=>`<option value="${g.id}">${g.nom}</option>`).join('');
+  rendreListe();
+}
+
+function rendreListe(){
+  const zone=$('liste-groupes');zone.innerHTML='';
+  GROUPES.forEach(g=>{
+    const items=RESOURCES.filter(r=>r.gt===g.id);
+    const bloc=document.createElement('div');bloc.className='groupe-bloc';
+    bloc.innerHTML=`<h2>${g.nom}</h2><p class="nb">${items.length} ressource${items.length!==1?'s':''}</p>`;
+    if(!items.length){bloc.innerHTML+='<p class="souscription">Aucune ressource pour ce groupe.</p>'}
+    items.forEach(r=>{
+      const ligne=document.createElement('div');ligne.className='ressource-ligne';
+      ligne.innerHTML=`<div class="ressource-corps">
+        <div class="meta"><span>${r.genre}</span>${r.date?`<span>/ ${r.date}</span>`:''}${r.origine==='externe'?'<span class="badge">Externe</span>':''}</div>
+        <h3>${r.titre}</h3>
+        <p>${r.texte||''}</p>
+        <a href="${r.lien}" target="_blank" rel="noopener">${r.lien}</a>
+      </div>
+      <div class="actions">
+        <button class="bouton secondaire" data-modifier="${r.id}">Modifier</button>
+        <button class="bouton danger" data-supprimer="${r.id}">Supprimer</button>
+      </div>`;
+      bloc.appendChild(ligne);
+    });
+    zone.appendChild(bloc);
+  });
+  zone.querySelectorAll('[data-modifier]').forEach(b=>b.addEventListener('click',()=>chargerPourEdition(b.dataset.modifier)));
+  zone.querySelectorAll('[data-supprimer]').forEach(b=>b.addEventListener('click',()=>supprimer(b.dataset.supprimer)));
+}
+
+function chargerPourEdition(id){
+  const r=RESOURCES.find(x=>x.id===id);if(!r)return;
+  $('r-id').value=r.id;$('r-gt').value=r.gt;$('r-genre').value=r.genre;$('r-origine').value=r.origine;
+  $('r-titre').value=r.titre;$('r-texte').value=r.texte||'';$('r-date').value=r.date||'';$('r-duree').value=r.duree||'';$('r-lien').value=r.lien;
+  $('titre-formulaire').textContent='Modifier la ressource';
+  $('bouton-enregistrer').textContent='Enregistrer les modifications';
+  $('bouton-annuler').classList.remove('masque');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function reinitialiserFormulaire(){
+  $('form-ressource').reset();$('r-id').value='';
+  $('titre-formulaire').textContent='Ajouter une ressource';
+  $('bouton-enregistrer').textContent='Ajouter la ressource';
+  $('bouton-annuler').classList.add('masque');
+  $('upload-etat').textContent='';
+}
+$('bouton-annuler').addEventListener('click',reinitialiserFormulaire);
+
+// --- Upload de fichier : remplit automatiquement le champ lien ---
+$('r-fichier').addEventListener('change',async()=>{
+  const fichier=$('r-fichier').files[0];if(!fichier)return;
+  const etat=$('upload-etat');etat.textContent='Envoi en cours…';
+  try{
+    const contentBase64=await new Promise((resolve,reject)=>{
+      const lecteur=new FileReader();
+      lecteur.onload=()=>resolve(String(lecteur.result).split(',')[1]);
+      lecteur.onerror=reject;
+      lecteur.readAsDataURL(fichier);
+    });
+    const res=await appel('/api/upload',{method:'POST',body:JSON.stringify({filename:fichier.name,contentBase64})});
+    $('r-lien').value=res.path;
+    etat.textContent=`Fichier envoyé : ${res.path}`;
+  }catch(err){etat.textContent=`Échec de l'envoi : ${err.message}`}
+});
+
+// --- Créer / modifier une ressource ---
+$('form-ressource').addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  const msg=$('message-admin');afficherMessage(msg,'','');
+  const id=$('r-id').value;
+  const payload={gt:$('r-gt').value,genre:$('r-genre').value,origine:$('r-origine').value,titre:$('r-titre').value,texte:$('r-texte').value,date:$('r-date').value,duree:$('r-duree').value,lien:$('r-lien').value};
+  const boutonEnregistrer=$('bouton-enregistrer');boutonEnregistrer.disabled=true;
+  try{
+    let resultat;
+    if(id){resultat=await appel('/api/resources',{method:'PUT',body:JSON.stringify({id,...payload})})}
+    else{resultat=await appel('/api/resources',{method:'POST',body:JSON.stringify(payload)})}
+    if(id){const idx=RESOURCES.findIndex(r=>r.id===id);RESOURCES[idx]=resultat.resource}
+    else{RESOURCES.push(resultat.resource)}
+    rendreListe();reinitialiserFormulaire();
+    afficherMessage(msg,'Ressource enregistrée. Le site public sera à jour dans une minute environ.','ok');
+  }catch(err){afficherMessage(msg,err.message,'erreur')}
+  finally{boutonEnregistrer.disabled=false}
+});
+
+async function supprimer(id){
+  const r=RESOURCES.find(x=>x.id===id);if(!r)return;
+  if(!confirm(`Supprimer « ${r.titre} » ?`))return;
+  const msg=$('message-admin');afficherMessage(msg,'','');
+  try{
+    await appel(`/api/resources?id=${encodeURIComponent(id)}`,{method:'DELETE'});
+    RESOURCES=RESOURCES.filter(x=>x.id!==id);
+    rendreListe();
+    afficherMessage(msg,'Ressource supprimée.','ok');
+  }catch(err){afficherMessage(msg,err.message,'erreur')}
+}
+
+// Si une session valide existe déjà (cookie), on tente directement l'accès admin.
+fetch('/api/resources',{method:'GET',credentials:'same-origin'}).then(r=>{if(r.status===200)entrerAdmin()});
+</script>
+</body></html>
