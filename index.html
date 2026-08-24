@@ -13,7 +13,8 @@
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}body{margin:0;background:var(--papier);color:var(--noir);font:17px/1.55 var(--serif)}button,input,select{font:inherit}a{color:inherit}:focus-visible{outline:3px solid var(--rouge);outline-offset:3px}.enveloppe{max-width:1120px;margin:auto;padding:0 28px}
 .bandeau{background:var(--surface);padding:26px 0 56px;border-bottom:1px solid var(--trait)}.entete{display:flex;justify-content:space-between;align-items:center;margin-bottom:56px}.marque{display:flex;align-items:center;gap:12px}.logo-avop{height:64px;width:auto;display:block}.nav-entete{display:flex;align-items:center;gap:22px}.lien-ressources{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--sourdine);text-decoration:none}.lien-ressources:hover{color:var(--rouge)}
 .nom-complet{font-style:italic;color:var(--sourdine);font-size:.92rem;max-width:600px;margin:0 0 18px}.surtitre,.mention{font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--rouge)}h1{font:500 clamp(3rem,8vw,6rem)/.94 var(--geo);letter-spacing:normal;max-width:820px;margin:14px 0 24px}.chapo{color:var(--sourdine);font-size:1.08rem;max-width:640px;margin:0 0 30px}
-.public{display:flex;gap:14px;align-items:flex-start;max-width:640px;background:var(--papier);border:1px solid var(--trait);border-left:3px solid var(--rouge);border-radius:3px;padding:16px 20px}.public svg{flex:0 0 20px;margin-top:3px;stroke:var(--rouge);fill:none;stroke-width:1.6}.public p{margin:0;font-size:.94rem;color:var(--noir)}.public strong{font-weight:600}
+.public{display:flex;gap:14px;align-items:flex-start;max-width:640px;background:var(--papier);border:1px solid var(--trait);border-left:3px solid var(--rouge);border-radius:3px;padding:16px 20px;margin-bottom:30px}.public svg{flex:0 0 20px;margin-top:3px;stroke:var(--rouge);fill:none;stroke-width:1.6}.public p{margin:0;font-size:.94rem;color:var(--noir)}.public strong{font-weight:600}
+.stats{display:flex;gap:32px;flex-wrap:wrap}.stat{display:flex;gap:9px;align-items:baseline}.stat strong{font:500 22px var(--geo)}.stat span{font:12px var(--mono);color:var(--sourdine);text-transform:uppercase;letter-spacing:.06em}
 section.bloc{padding:56px 0;border-bottom:1px solid var(--trait)}section.bloc:last-of-type{border-bottom:0}.bloc-tete{max-width:680px;margin-bottom:34px}.bloc-tete h2{font:400 2.1rem/1.15 var(--geo);letter-spacing:-.025em;margin:0 0 12px}.bloc-tete p{color:var(--sourdine);margin:0}
 .dispositif-corps{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}.dispositif-texte p{margin:0 0 16px;max-width:520px}.dispositif-texte p:last-child{margin-bottom:0}
 .video-cadre{position:relative;width:100%;aspect-ratio:16/9;background:var(--noir);border-radius:4px;overflow:hidden}.video-cadre iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.video-defaut{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff;text-align:center;padding:20px}.video-defaut svg{width:46px;height:46px;stroke:var(--rouge);fill:none;stroke-width:1.3}.video-defaut strong{font:500 1rem var(--geo)}.video-defaut span{font:11px var(--mono);letter-spacing:.06em;color:#c9c4c2;max-width:260px}
@@ -30,18 +31,30 @@ footer{border-top:1px solid var(--trait);padding:32px 0 54px;color:var(--sourdin
 <p class="surtitre">Dispositif cantonal</p>
 <h1>Situations<br>complexes</h1>
 <p class="nom-complet">Projet de dispositif cantonal d'accompagnement des situations complexes pour les personnes adultes en situation de handicap</p>
-<p class="chapo">Un dispositif au service des institutions sociales vaudoises qui accompagnent des personnes adultes en situation de handicap confrontées à des situations complexes — et un espace pour suivre les travaux qui en découlent.</p>
+<p class="chapo">Bienvenue sur l'espace du dispositif cantonal d'accompagnement des situations complexes. Vous y retrouvez les travaux menés depuis janvier 2024 par les groupes de travail — recensements de bonnes pratiques, outils d'autoévaluation, catalogues de formation — pensés pour être utiles au quotidien aux équipes qui accompagnent des personnes adultes en situation de handicap.</p>
 <div class="public"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8v8l9 5 9-5V8z"></path><path d="M12 12v9"></path><path d="m3 8 9 4 9-4"></path></svg><p><strong>Ce site s'adresse à tou·tes les professionnel·les</strong> des institutions sociales vaudoises qui accueillent des situations complexes — pas uniquement aux membres des groupes de travail.</p></div>
+<div class="stats"><div class="stat"><strong>2024</strong><span>Lancement du dispositif</span></div><div class="stat"><strong>3</strong><span>Axes de travail</span></div><div class="stat"><strong>4</strong><span>Groupes de travail</span></div><div class="stat"><strong id="stat-ressources">—</strong><span>Ressources disponibles</span></div></div>
 </div></header>
 
 <main>
+<section class="bloc"><div class="enveloppe">
+<div class="bloc-tete"><p class="mention">À votre disposition</p><h2>Ce que vous trouverez ici</h2><p>Les livrables concrets produits par les groupes de travail depuis 2024 : à consulter, télécharger et mobiliser dans votre pratique quotidienne.</p></div>
+<div class="grille-gt">
+<a class="carte-gt" href="ressources.html?gt=formation"><h3>Catalogue de formations<span>↗</span></h3><p>Les formations continues recensées et structurées à l'échelle cantonale, de l'initiation aux modules certifiants.</p></a>
+<a class="carte-gt" href="ressources.html?gt=violence"><h3>Recensement de bonnes pratiques<span>↗</span></h3><p>Un cadre de référence sur l'accompagnement et la gestion de la violence, construit avec le terrain et des repères scientifiques.</p></a>
+<a class="carte-gt" href="ressources.html?gt=violence"><h3>Check-list d'autoévaluation<span>↗</span></h3><p>Un outil concret pour faire le point sur les pratiques de votre équipe, axe par axe.</p></a>
+<a class="carte-gt" href="ressources.html?gt=violence&origine=externe"><h3>Ressources externes de référence<span>↗</span></h3><p>ICP, Unisanté, OIT, HAS, HEVE… les organismes et lignes directrices mobilisables en complément du travail du GT.</p></a>
+</div>
+</div></section>
+
 <!-- Zone éditoriale : adaptez ce texte de présentation du dispositif à votre contenu réel. -->
 <section class="bloc"><div class="enveloppe">
 <div class="bloc-tete"><p class="mention">Le dispositif</p><h2>Qu'est-ce que le dispositif situations complexes ?</h2></div>
 <div class="dispositif-corps">
 <div class="dispositif-texte">
 <p>Une situation est dite complexe lorsque, en complément d'une déficience intellectuelle, d'un polyhandicap ou d'un handicap physique, elle présente une ou plusieurs comorbidités (psychiatriques, TSA, addictions) et/ou des comportements-défis dont l'intensité, la fréquence ou la durée deviennent critiques pour la personne elle-même, son entourage et son intégration dans la collectivité.</p>
-<p>Le dispositif cantonal réunit professionnel·les de terrain, directions d'établissements, secteur socio-sanitaire, autorités cantonales et représentant·es des familles et des personnes concernées au sein de groupes de travail thématiques. Leurs travaux — recensements de bonnes pratiques, outils d'autoévaluation, catalogues de formation — sont partagés sur ce site.</p>
+<p>Porté par la Direction générale de la cohésion sociale (DGCS) et l'AVOP, le dispositif a démarré en janvier 2024 autour de trois axes : planifier l'offre institutionnelle, améliorer les conditions de travail et de formation des professionnel·les, et évaluer le processus de transition entre les secteurs mineurs et majeurs.</p>
+<p>Il réunit professionnel·les de terrain, directions d'établissements, secteur socio-sanitaire, autorités cantonales et représentant·es des familles et des personnes concernées au sein de groupes de travail thématiques. Leurs travaux — recensements de bonnes pratiques, outils d'autoévaluation, catalogues de formation — sont partagés sur ce site.</p>
 </div>
 <div class="video-cadre">
 <!-- Remplacez ce bloc par une balise iframe pointant vers la vidéo de présentation (YouTube, Vimeo…), par exemple :
@@ -52,16 +65,17 @@ footer{border-top:1px solid var(--trait);padding:32px 0 54px;color:var(--sourdin
 </div></section>
 
 <section class="bloc"><div class="enveloppe">
-<div class="bloc-tete"><p class="mention">Les travaux en cours</p><h2>Les groupes de travail</h2><p>Quatre groupes de travail développent des ressources sur des axes concrets du dispositif. Leurs documents, vidéos et présentations sont accessibles à tou·tes.</p></div>
+<div class="bloc-tete"><p class="mention">Les travaux en cours</p><h2>Les groupes de travail</h2><p>Quatre groupes de travail développent les livrables du dispositif, organisés autour de ses trois axes : offre institutionnelle, conditions de travail et formation, transition entre secteurs mineurs et majeurs. Leurs documents, vidéos et présentations sont accessibles à tou·tes.</p></div>
 <div class="grille-gt" id="grille-gt"></div>
 <a class="toutes-ressources" href="ressources.html">Voir toutes les ressources des groupes de travail →</a>
 </div></section>
 </main>
 
-<footer><div class="enveloppe"><p class="mention">Dispositif cantonal</p><p>Ce site présente le dispositif situations complexes et les travaux des groupes de travail qui le composent, à l'attention des professionnel·les des institutions sociales vaudoises concernées.</p><p>Une question sur le dispositif ? Écrivez au pôle FRDI de l'AVOP.</p></div></footer>
+<footer><div class="enveloppe"><p class="mention">Dispositif cantonal</p><p>Le dispositif cantonal d'accompagnement des situations complexes est porté par la Direction générale de la cohésion sociale (DGCS) et l'Association vaudoise des organisations privées pour personnes en difficulté (AVOP), depuis janvier 2024. Ce site présente ses travaux à l'attention des professionnel·les des institutions sociales vaudoises concernées.</p><p>Une question sur le dispositif ? Écrivez au pôle FRDI de l'AVOP.</p></div></footer>
 
 <script>
 const grille=document.getElementById('grille-gt');
 fetch('data/groupes.json').then(r=>r.json()).then(d=>{d.groupes.forEach(g=>{const a=document.createElement('a');a.className='carte-gt';a.href=`ressources.html?gt=${g.id}`;a.innerHTML=`<h3>${g.nom}<span>↗</span></h3><p>${g.intro}</p>`;grille.appendChild(a)})});
+fetch('data/config.json').then(r=>r.json()).then(config=>fetch(`${config.supabaseUrl}/rest/v1/ressources?select=id`,{headers:{apikey:config.supabaseAnonKey,Authorization:`Bearer ${config.supabaseAnonKey}`}})).then(r=>r.json()).then(rows=>{document.getElementById('stat-ressources').textContent=rows.length}).catch(()=>{});
 </script>
 </body></html>

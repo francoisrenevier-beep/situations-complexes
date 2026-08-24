@@ -38,7 +38,9 @@ Promise.all([
   return fetch(`${config.supabaseUrl}/rest/v1/ressources?select=*`,{headers:{apikey:config.supabaseAnonKey,Authorization:`Bearer ${config.supabaseAnonKey}`}}).then(r=>r.json());
 }).then(ressources=>{
   RESSOURCES=ressources;
-  const paramGt=new URLSearchParams(location.search).get('gt');actif=GROUPES.some(g=>g.id===paramGt)?paramGt:GROUPES[0]?.id;
+  const params=new URLSearchParams(location.search),paramGt=params.get('gt'),paramOrigine=params.get('origine');
+  actif=GROUPES.some(g=>g.id===paramGt)?paramGt:GROUPES[0]?.id;
+  if(paramOrigine==='gt'||paramOrigine==='externe')filtreOrigine.value=paramOrigine;
   $('stat-groupes').textContent=GROUPES.length;$('stat-ressources').textContent=RESSOURCES.length;construireGroupes();rendre();
 }).catch(()=>{vide('Impossible de charger les ressources','Réessayez dans quelques instants.')});
 </script></body></html>
