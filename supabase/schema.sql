@@ -16,12 +16,11 @@ create table ressources (
 alter table ressources enable row level security;
 
 -- Lecture publique (utilisée par index.html / ressources.html / admin.html
--- via la clé "anon"). Aucune policy d'écriture n'est créée : les
--- insert/update/delete ne passent que par nos fonctions serveur, qui
--- utilisent la clé "service_role" (celle-ci contourne toujours les
--- policies RLS, par conception de Supabase).
+-- via la clé "anon"). Les policies d'écriture (réservées aux personnes
+-- connectées via Supabase Auth) sont dans auth-policies.sql.
 create policy "Lecture publique" on ressources
   for select using (true);
 
 -- Créez aussi, dans Storage, un bucket public nommé "documents"
--- (Storage → New bucket → Public bucket : activé) pour les fichiers uploadés.
+-- (Storage → New bucket → Public bucket : activé) pour les fichiers uploadés,
+-- puis exécutez auth-policies.sql.

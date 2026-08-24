@@ -69,6 +69,7 @@ h1{font:600 1.6rem/1.2 var(--geo);margin:0 0 6px}
     <p class="souscription">Accès réservé à l'administration du dispositif situations complexes.</p>
     <div id="message-connexion"></div>
     <form id="form-connexion">
+      <div class="champ"><label for="email">E-mail</label><input type="email" id="email" name="email" autocomplete="username" required></div>
       <div class="champ"><label for="mdp">Mot de passe</label><input type="password" id="mdp" name="password" autocomplete="current-password" required></div>
       <button class="bouton" type="submit">Se connecter</button>
     </form>
@@ -127,16 +128,30 @@ h1{font:600 1.6rem/1.2 var(--geo);margin:0 0 6px}
 
 <script>
 const $=id=>document.getElementById(id);
-let RESOURCES=[],GROUPES=[];
+let RESOURCES=[],GROUPES=[],CONFIG=null,SESSION=null;
 
 function afficherMessage(zone,texte,type){zone.innerHTML=texte?`<div class="message ${type}">${texte}</div>`:'';}
 
-async function appel(url,options){
-  const res=await fetch(url,{credentials:'same-origin',headers:{'Content-Type':'application/json'},...options});
-  let body={};
+// --- Supabase : appels REST directs (auth, table, storage) ---
+async function supabase(path,options={}){
+  const res=await fetch(`${CONFIG.supabaseUrl}${path}`,{
+    ...options,
+    headers:{
+      apikey:CONFIG.supabaseAnonKey,
+      Authorization:`Bearer ${SESSION?SESSION.access_token:CONFIG.supabaseAnonKey}`,
+      ...(options.headers||{})
+    }
+  });
+  let body=null;
   try{body=await res.json()}catch{}
-  if(!res.ok) throw new Error(body.error||`Erreur (${res.status})`);
+  if(!res.ok) throw new Error((body&&(body.error_description||body.msg||body.message))||`Erreur (${res.status})`);
   return body;
+}
+
+function sauverSession(session){
+  SESSION=session;
+  if(session) localStorage.setItem('admin_session',JSON.stringify(session));
+  else localStorage.removeItem('admin_session');
 }
 
 // --- Connexion ---
@@ -144,14 +159,20 @@ $('form-connexion').addEventListener('submit',async(e)=>{
   e.preventDefault();
   const msg=$('message-connexion');afficherMessage(msg,'','');
   try{
-    await appel('/api/login',{method:'POST',body:JSON.stringify({password:$('mdp').value})});
+    CONFIG=CONFIG||await fetch('data/config.json',{cache:'no-store'}).then(r=>r.json());
+    const session=await supabase('/auth/v1/token?grant_type=password',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:$('email').value,password:$('mdp').value})
+    });
+    sauverSession(session);
     $('mdp').value='';
     entrerAdmin();
-  }catch(err){afficherMessage(msg,err.message,'erreur')}
+  }catch(err){afficherMessage(msg,'Connexion refusée : e-mail ou mot de passe incorrect.','erreur')}
 });
-$('lien-deconnexion').addEventListener('click',async(e)=>{
+$('lien-deconnexion').addEventListener('click',(e)=>{
   e.preventDefault();
-  await fetch('/api/logout',{method:'POST',credentials:'same-origin'});
+  sauverSession(null);
   location.reload();
 });
 
@@ -162,13 +183,10 @@ function entrerAdmin(){
   chargerDonnees();
 }
 
-let CONFIG=null;
-
 async function chargerDonnees(){
-  CONFIG=await fetch('data/config.json',{cache:'no-store'}).then(r=>r.json());
   const groupesData=await fetch('data/groupes.json',{cache:'no-store'}).then(r=>r.json());
   GROUPES=groupesData.groupes;
-  RESOURCES=await fetch(`${CONFIG.supabaseUrl}/rest/v1/ressources?select=*`,{headers:{apikey:CONFIG.supabaseAnonKey,Authorization:`Bearer ${CONFIG.supabaseAnonKey}`}}).then(r=>r.json());
+  RESOURCES=await supabase('/rest/v1/ressources?select=*');
   const sel=$('r-gt');sel.innerHTML=GROUPES.map(g=>`<option value="${g.id}">${g.nom}</option>`).join('');
   rendreListe();
 }
@@ -219,20 +237,19 @@ function reinitialiserFormulaire(){
 }
 $('bouton-annuler').addEventListener('click',reinitialiserFormulaire);
 
-// --- Upload de fichier : remplit automatiquement le champ lien ---
+const DIACRITICS=new RegExp('[̀-ͯ]','g');
+function slugify(t){return String(t).toLowerCase().normalize('NFD').replace(DIACRITICS,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60)}
+
+// --- Upload de fichier : envoyé directement au bucket Supabase, remplit le champ lien ---
 $('r-fichier').addEventListener('change',async()=>{
   const fichier=$('r-fichier').files[0];if(!fichier)return;
   const etat=$('upload-etat');etat.textContent='Envoi en cours…';
   try{
-    const contentBase64=await new Promise((resolve,reject)=>{
-      const lecteur=new FileReader();
-      lecteur.onload=()=>resolve(String(lecteur.result).split(',')[1]);
-      lecteur.onerror=reject;
-      lecteur.readAsDataURL(fichier);
-    });
-    const res=await appel('/api/upload',{method:'POST',body:JSON.stringify({filename:fichier.name,contentBase64})});
-    $('r-lien').value=res.path;
-    etat.textContent=`Fichier envoyé : ${res.path}`;
+    const path=`${slugify(fichier.name.replace(/\.[^.]+$/,''))}-${Date.now().toString(36)}.${fichier.name.split('.').pop().toLowerCase()}`;
+    await supabase(`/storage/v1/object/documents/${path}`,{method:'POST',headers:{'Content-Type':fichier.type||'application/octet-stream','x-upsert':'true'},body:fichier});
+    const urlPublique=`${CONFIG.supabaseUrl}/storage/v1/object/public/documents/${path}`;
+    $('r-lien').value=urlPublique;
+    etat.textContent=`Fichier envoyé : ${path}`;
   }catch(err){etat.textContent=`Échec de l'envoi : ${err.message}`}
 });
 
@@ -241,16 +258,22 @@ $('form-ressource').addEventListener('submit',async(e)=>{
   e.preventDefault();
   const msg=$('message-admin');afficherMessage(msg,'','');
   const id=$('r-id').value;
-  const payload={gt:$('r-gt').value,genre:$('r-genre').value,origine:$('r-origine').value,titre:$('r-titre').value,texte:$('r-texte').value,date:$('r-date').value,duree:$('r-duree').value,lien:$('r-lien').value};
+  const payload={gt:$('r-gt').value,genre:$('r-genre').value,origine:$('r-origine').value,titre:$('r-titre').value.trim(),texte:$('r-texte').value,date:$('r-date').value,duree:$('r-duree').value||null,lien:$('r-lien').value.trim()};
   const boutonEnregistrer=$('bouton-enregistrer');boutonEnregistrer.disabled=true;
   try{
-    let resultat;
-    if(id){resultat=await appel('/api/resources',{method:'PUT',body:JSON.stringify({id,...payload})})}
-    else{resultat=await appel('/api/resources',{method:'POST',body:JSON.stringify(payload)})}
-    if(id){const idx=RESOURCES.findIndex(r=>r.id===id);RESOURCES[idx]=resultat.resource}
-    else{RESOURCES.push(resultat.resource)}
+    let resource;
+    if(id){
+      const rows=await supabase(`/rest/v1/ressources?id=eq.${encodeURIComponent(id)}`,{method:'PATCH',headers:{'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify(payload)});
+      resource=rows[0];
+      const idx=RESOURCES.findIndex(r=>r.id===id);RESOURCES[idx]=resource;
+    }else{
+      const newId=`${slugify(payload.gt)}-${slugify(payload.titre)}-${Date.now().toString(36)}`;
+      const rows=await supabase('/rest/v1/ressources',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify({id:newId,...payload})});
+      resource=rows[0];
+      RESOURCES.push(resource);
+    }
     rendreListe();reinitialiserFormulaire();
-    afficherMessage(msg,'Ressource enregistrée. Le site public sera à jour dans une minute environ.','ok');
+    afficherMessage(msg,'Ressource enregistrée. Elle est déjà en ligne sur le site public.','ok');
   }catch(err){afficherMessage(msg,err.message,'erreur')}
   finally{boutonEnregistrer.disabled=false}
 });
@@ -260,14 +283,23 @@ async function supprimer(id){
   if(!confirm(`Supprimer « ${r.titre} » ?`))return;
   const msg=$('message-admin');afficherMessage(msg,'','');
   try{
-    await appel(`/api/resources?id=${encodeURIComponent(id)}`,{method:'DELETE'});
+    await supabase(`/rest/v1/ressources?id=eq.${encodeURIComponent(id)}`,{method:'DELETE'});
     RESOURCES=RESOURCES.filter(x=>x.id!==id);
     rendreListe();
     afficherMessage(msg,'Ressource supprimée.','ok');
   }catch(err){afficherMessage(msg,err.message,'erreur')}
 }
 
-// Si une session valide existe déjà (cookie), on tente directement l'accès admin.
-fetch('/api/resources',{method:'GET',credentials:'same-origin'}).then(r=>{if(r.status===200)entrerAdmin()});
+// Si une session valide existe déjà (localStorage), on tente directement l'accès admin.
+(async()=>{
+  CONFIG=await fetch('data/config.json',{cache:'no-store'}).then(r=>r.json());
+  const stockee=localStorage.getItem('admin_session');
+  if(!stockee)return;
+  try{
+    SESSION=JSON.parse(stockee);
+    await supabase('/auth/v1/user'); // vérifie que le token est encore valide
+    entrerAdmin();
+  }catch{sauverSession(null)}
+})();
 </script>
 </body></html>
