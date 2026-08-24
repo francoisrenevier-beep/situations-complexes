@@ -69,8 +69,7 @@ h1{font:600 1.6rem/1.2 var(--geo);margin:0 0 6px}
     <p class="souscription">Accès réservé à l'administration du dispositif situations complexes.</p>
     <div id="message-connexion"></div>
     <form id="form-connexion">
-      <div class="champ"><label for="email">E-mail</label><input type="email" id="email" name="email" autocomplete="username" required></div>
-      <div class="champ"><label for="mdp">Mot de passe</label><input type="password" id="mdp" name="password" autocomplete="current-password" required></div>
+      <div class="champ"><label for="mdp">Mot de passe</label><input type="password" id="mdp" name="password" autocomplete="current-password" required autofocus></div>
       <button class="bouton" type="submit">Se connecter</button>
     </form>
   </div>
@@ -128,6 +127,9 @@ h1{font:600 1.6rem/1.2 var(--geo);margin:0 0 6px}
 
 <script>
 const $=id=>document.getElementById(id);
+// Compte Supabase Auth unique servant à l'admin. À créer dans Supabase
+// (Authentication → Users → Add user) avec exactement cet e-mail.
+const ADMIN_EMAIL='admin@situations-complexes.local';
 let RESOURCES=[],GROUPES=[],CONFIG=null,SESSION=null;
 
 function afficherMessage(zone,texte,type){zone.innerHTML=texte?`<div class="message ${type}">${texte}</div>`:'';}
@@ -163,7 +165,7 @@ $('form-connexion').addEventListener('submit',async(e)=>{
     const session=await supabase('/auth/v1/token?grant_type=password',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email:$('email').value,password:$('mdp').value})
+      body:JSON.stringify({email:ADMIN_EMAIL,password:$('mdp').value})
     });
     sauverSession(session);
     $('mdp').value='';
