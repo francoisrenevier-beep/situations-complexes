@@ -13,8 +13,11 @@
 .bandeau{background:var(--surface);padding:26px 0 56px}
 .entete{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:64px;flex-wrap:wrap}
 .entete .co-marque .logo-avop{height:52px}
+.nav-entete{display:flex;align-items:center;gap:16px}
 .lien-ressources{display:inline-flex;align-items:center;min-height:var(--cible);font:600 12.5px var(--texte);letter-spacing:.03em;color:var(--encre);text-decoration:none;border:1px solid var(--trait);border-radius:30px;padding:0 20px;transition:.15s}
 .lien-ressources:hover{border-color:var(--rouge-avop);color:var(--rouge-avop)}
+.lien-admin{font:500 12px var(--texte);letter-spacing:.03em;color:var(--sourdine);text-decoration:none;padding-left:16px;border-left:1px solid var(--trait)}
+.lien-admin:hover{color:var(--rouge-avop)}
 
 h1{font:600 clamp(3rem,7.5vw,5.8rem)/.98 var(--titre);max-width:820px;margin:16px 0 26px}
 .chapo{color:var(--sourdine);font-size:1.15rem;line-height:1.6;max-width:600px;margin:0 0 34px}
@@ -62,7 +65,7 @@ section.bloc.contraste{background:var(--surface)}
 .chantiers-mini a:hover .txt{color:var(--rouge-avop)}
 .chantiers-mini .etat{display:block;margin-top:5px;font:500 13.5px var(--texte);color:var(--sourdine)}
 .chantiers-mini .etat.dispo{color:var(--vert-texte)}
-.toutes-ressources{margin-top:44px;display:inline-flex}
+.liens-complementaires{margin-top:44px;display:flex;flex-wrap:wrap;gap:8px 28px}
 
 .dispositif-corps{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
 .dispositif-texte p{margin:0;max-width:520px}
@@ -90,7 +93,7 @@ section.bloc.contraste{background:var(--surface)}
     <!-- TODO : remplacer par le logo officiel de l'État de Vaud fourni par le porteur du projet -->
     <span class="logo-vaud-attente">+ logo État de Vaud</span>
   </div>
-  <nav><a class="lien-ressources" href="ressources.html">Ressources des groupes de travail →</a></nav>
+  <nav class="nav-entete"><a class="lien-ressources" href="ressources.html">Ressources des groupes de travail →</a><a class="lien-admin" href="admin.html">Espace admin</a></nav>
 </div>
 <div class="hero-grille">
 <div class="hero-texte">
@@ -126,7 +129,10 @@ section.bloc.contraste{background:var(--surface)}
 <section class="bloc" id="chantiers"><div class="enveloppe">
 <div class="bloc-tete"><p class="etiquette">Structure du dispositif</p><h2>Trois axes, six chantiers</h2><p>Choisissez un chantier pour accéder à ses ressources, quel que soit son état d'avancement.</p></div>
 <div class="axes-grille" id="sommaire" aria-live="polite"></div>
-<a class="lien-texte toutes-ressources" href="ressources.html">Voir toutes les ressources, tous chantiers confondus →</a>
+<div class="liens-complementaires">
+<a class="lien-texte" href="ressources.html">Voir toutes les ressources, tous chantiers confondus →</a>
+<a class="lien-texte" id="lien-doc-generale" href="ressources.html?gt=general">Documentation générale — rapports, études <span id="nb-doc-generale"></span>→</a>
+</div>
 </div></section>
 
 <!-- Zone éditoriale : adaptez ce texte de présentation du dispositif à votre contenu réel. -->
@@ -169,9 +175,14 @@ Promise.all([
   fetch('data/groupes.json').then(r=>r.json()),
   fetch('data/config.json').then(r=>r.json())
 ]).then(([data,config])=>fetch(`${config.supabaseUrl}/rest/v1/ressources?select=id,gt`,{headers:{apikey:config.supabaseAnonKey,Authorization:`Bearer ${config.supabaseAnonKey}`}}).then(r=>r.json()).then(rows=>{
-  const AXES=data.axes.slice().sort((a,b)=>a.numero-b.numero), GROUPES=data.groupes;
+  const AXES=data.axes.slice().sort((a,b)=>a.numero-b.numero), GROUPES=data.groupes, DOC_GENERALE=data.documentationGenerale;
   document.getElementById('stat-chantiers').textContent=GROUPES.length;
   document.getElementById('stat-ressources').textContent=rows.length;
+
+  if(DOC_GENERALE){
+    const nbGenerale=rows.filter(r=>r.gt===DOC_GENERALE.id).length;
+    document.getElementById('nb-doc-generale').textContent=nbGenerale?`(${nbGenerale}) `:'';
+  }
 
   const sommaire=document.getElementById('sommaire');
   AXES.forEach(axe=>{
