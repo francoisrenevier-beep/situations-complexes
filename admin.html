@@ -147,7 +147,7 @@ h1{font:600 1.6rem/1.2 var(--titre);margin:0 0 6px}
 
 <script>
 const $=id=>document.getElementById(id);
-let RESOURCES=[],GROUPES=[],AXES=[],CONFIG=null,SESSION=null;
+let RESOURCES=[],GROUPES=[],AXES=[],DOC_GENERALE=null,CONFIG=null,SESSION=null;
 
 function afficherMessage(zone,texte,type){zone.innerHTML=texte?`<div class="message ${type}">${texte}</div>`:'';}
 
@@ -202,13 +202,40 @@ function entrerAdmin(){
 
 async function chargerDonnees(){
   const data=await fetch('data/groupes.json',{cache:'no-store'}).then(r=>r.json());
-  AXES=data.axes.slice().sort((a,b)=>a.numero-b.numero);GROUPES=data.groupes;
+  AXES=data.axes.slice().sort((a,b)=>a.numero-b.numero);GROUPES=data.groupes;DOC_GENERALE=data.documentationGenerale||null;
   // Tri côté client (et non via ?order=) pour rester compatible avec une base
   // qui n'a pas encore reçu la migration ajoutant la colonne "ordre".
   RESOURCES=await supabase('/rest/v1/ressources?select=*');
   RESOURCES.sort((a,b)=>a.gt.localeCompare(b.gt)||((a.ordre??999999)-(b.ordre??999999))||(a.created_at||'').localeCompare(b.created_at||''));
-  const sel=$('r-gt');sel.innerHTML=AXES.map(axe=>`<optgroup label="Axe ${axe.numero} — ${axe.nom}">${GROUPES.filter(g=>g.axe===axe.id).map(g=>`<option value="${g.id}">${g.nom}</option>`).join('')}</optgroup>`).join('');
+  const sel=$('r-gt');
+  sel.innerHTML=AXES.map(axe=>`<optgroup label="Axe ${axe.numero} — ${axe.nom}">${GROUPES.filter(g=>g.axe===axe.id).map(g=>`<option value="${g.id}">${g.nom}</option>`).join('')}</optgroup>`).join('')
+    +(DOC_GENERALE?`<optgroup label="Hors axe">${`<option value="${DOC_GENERALE.id}">${DOC_GENERALE.nom}</option>`}</optgroup>`:'');
   rendreListe();
+}
+
+function construireGroupeBloc(id,numero,nom){
+  const items=RESOURCES.filter(r=>r.gt===id);
+  const bloc=document.createElement('div');bloc.className='groupe-bloc';
+  bloc.innerHTML=`<h3>${numero!=null?`${numero}. `:''}${nom}</h3><p class="nb">${items.length} ressource${items.length!==1?'s':''}${!items.length?' — travaux en cours, aucune ressource publiée':''}</p>`;
+  items.forEach((r,i)=>{
+    const ligne=document.createElement('div');ligne.className='ressource-ligne';
+    ligne.innerHTML=`<div class="reordonner">
+      <button type="button" data-monter="${r.id}" aria-label="Monter « ${r.titre} »" ${i===0?'disabled':''}>▲</button>
+      <button type="button" data-descendre="${r.id}" aria-label="Descendre « ${r.titre} »" ${i===items.length-1?'disabled':''}>▼</button>
+    </div>
+    <div class="ressource-corps">
+      <div class="meta"><span>${r.genre}</span>${r.date?`<span>/ ${r.date}</span>`:''}${r.poids?`<span>/ ${r.poids}</span>`:''}${r.origine==='externe'?'<span class="badge">Externe</span>':''}</div>
+      <h4>${r.titre}</h4>
+      <p>${r.texte||''}</p>
+      <a href="${r.lien}" target="_blank" rel="noopener">${r.lien}</a>
+    </div>
+    <div class="ressource-actions-ligne">
+      <button class="bouton secondaire" data-modifier="${r.id}">Modifier</button>
+      <button class="bouton danger" data-supprimer="${r.id}">Supprimer</button>
+    </div>`;
+    bloc.appendChild(ligne);
+  });
+  return bloc;
 }
 
 function rendreListe(){
@@ -217,32 +244,15 @@ function rendreListe(){
     const groupesAxe=GROUPES.filter(g=>g.axe===axe.id);
     const blocAxe=document.createElement('div');blocAxe.className='axe-bloc';
     blocAxe.innerHTML=`<h2>Axe ${axe.numero} — ${axe.nom}</h2><p class="intro-axe">${axe.intro}</p>`;
-    groupesAxe.forEach(g=>{
-      const items=RESOURCES.filter(r=>r.gt===g.id);
-      const bloc=document.createElement('div');bloc.className='groupe-bloc';
-      bloc.innerHTML=`<h3>${g.numero}. ${g.nom}</h3><p class="nb">${items.length} ressource${items.length!==1?'s':''}${!items.length?' — travaux en cours, aucune ressource publiée':''}</p>`;
-      items.forEach((r,i)=>{
-        const ligne=document.createElement('div');ligne.className='ressource-ligne';
-        ligne.innerHTML=`<div class="reordonner">
-          <button type="button" data-monter="${r.id}" aria-label="Monter « ${r.titre} »" ${i===0?'disabled':''}>▲</button>
-          <button type="button" data-descendre="${r.id}" aria-label="Descendre « ${r.titre} »" ${i===items.length-1?'disabled':''}>▼</button>
-        </div>
-        <div class="ressource-corps">
-          <div class="meta"><span>${r.genre}</span>${r.date?`<span>/ ${r.date}</span>`:''}${r.poids?`<span>/ ${r.poids}</span>`:''}${r.origine==='externe'?'<span class="badge">Externe</span>':''}</div>
-          <h4>${r.titre}</h4>
-          <p>${r.texte||''}</p>
-          <a href="${r.lien}" target="_blank" rel="noopener">${r.lien}</a>
-        </div>
-        <div class="ressource-actions-ligne">
-          <button class="bouton secondaire" data-modifier="${r.id}">Modifier</button>
-          <button class="bouton danger" data-supprimer="${r.id}">Supprimer</button>
-        </div>`;
-        bloc.appendChild(ligne);
-      });
-      blocAxe.appendChild(bloc);
-    });
+    groupesAxe.forEach(g=>blocAxe.appendChild(construireGroupeBloc(g.id,g.numero,g.nom)));
     zone.appendChild(blocAxe);
   });
+  if(DOC_GENERALE){
+    const blocDoc=document.createElement('div');blocDoc.className='axe-bloc';
+    blocDoc.innerHTML=`<h2>${DOC_GENERALE.nom}</h2><p class="intro-axe">${DOC_GENERALE.intro}</p>`;
+    blocDoc.appendChild(construireGroupeBloc(DOC_GENERALE.id,null,'Ressources'));
+    zone.appendChild(blocDoc);
+  }
   zone.querySelectorAll('[data-modifier]').forEach(b=>b.addEventListener('click',()=>chargerPourEdition(b.dataset.modifier)));
   zone.querySelectorAll('[data-supprimer]').forEach(b=>b.addEventListener('click',()=>supprimer(b.dataset.supprimer)));
   zone.querySelectorAll('[data-monter]').forEach(b=>b.addEventListener('click',()=>reordonner(b.dataset.monter,'haut')));
@@ -365,7 +375,7 @@ async function supprimer(id){
 
 // --- Export / import JSON, pour le travail hors ligne et la restauration ---
 $('bouton-exporter').addEventListener('click',()=>{
-  const donnees={exporte_le:new Date().toISOString(),groupes:GROUPES,ressources:RESOURCES};
+  const donnees={exporte_le:new Date().toISOString(),axes:AXES,groupes:GROUPES,documentationGenerale:DOC_GENERALE,ressources:RESOURCES};
   const blob=new Blob([JSON.stringify(donnees,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');

@@ -35,9 +35,11 @@ main{padding:38px 0 82px}
 .layout{display:grid;grid-template-columns:270px 1fr;gap:48px;align-items:start}
 .navigation{position:sticky;top:82px}
 .navigation h2{font:600 11px var(--texte);letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;color:var(--sourdine)}
-.tous-chantiers{display:flex;width:100%;justify-content:space-between;align-items:center;gap:10px;min-height:44px;padding:0 14px;text-align:left;background:var(--surface);border:1px solid var(--trait);border-radius:var(--rayon);color:var(--encre);cursor:pointer;font:600 14px var(--texte);margin-bottom:16px}
+.tous-chantiers{display:flex;width:100%;justify-content:space-between;align-items:center;gap:10px;min-height:44px;padding:0 14px;text-align:left;background:var(--surface);border:1px solid var(--trait);border-radius:var(--rayon);color:var(--encre);cursor:pointer;font:600 14px var(--texte);margin-bottom:10px}
 .tous-chantiers.actif{color:var(--rouge-avop);border-color:var(--rouge-avop);background:var(--rouge-teinte)}
 .tous-chantiers small{font:11px var(--texte);opacity:.7}
+.tous-chantiers.doc-generale{margin-bottom:22px}
+.tous-chantiers.doc-generale.actif{color:var(--vert-texte);border-color:var(--vert-texte);background:var(--vert-teinte)}
 .axe-groupe{margin-bottom:16px}
 .axe-groupe > p{display:flex;align-items:baseline;gap:8px;font:700 11px var(--titre);letter-spacing:.06em;text-transform:uppercase;color:var(--sourdine);margin:0 0 6px;padding:0 4px}
 .axe-groupe > p .n{color:var(--rouge-avop)}
@@ -109,6 +111,7 @@ main{padding:38px 0 82px}
 <main><div class="enveloppe layout">
 <nav class="navigation" aria-label="Groupes de travail"><h2>Explorer par chantier</h2>
 <button type="button" class="tous-chantiers" id="bouton-tous">Tous les chantiers <small id="nb-tous"></small></button>
+<button type="button" class="tous-chantiers doc-generale" id="bouton-general">Documentation générale <small id="nb-general"></small></button>
 <div id="axes-nav"></div>
 </nav>
 <section aria-live="polite"><div class="intro" id="intro"></div><div class="resultats"><span id="compteur"></span><span>Accès aux documents</span></div><ul class="liste" id="liste"></ul></section>
@@ -127,11 +130,12 @@ main{padding:38px 0 82px}
 </div></footer>
 
 <script>
-let AXES=[],GROUPES=[],RESSOURCES=[],actif='tous';
+let AXES=[],GROUPES=[],RESSOURCES=[],DOC_GENERALE=null,actif='tous';
 const GENRES={document:['Document','M9 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M9 3v5h5 M9 13h6 M9 17h6'],video:['Vidéo','M23 7l-7 5 7 5V7z M1 5h15v14H1z'],presentation:['Présentation','M3 4h18v12H3z M8 20h8 M12 16v4'],lien:['Lien utile','M10 14 21 3 M21 3h-6 M21 3v6 M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6']};
-const $=id=>document.getElementById(id), liste=$('liste'), recherche=$('recherche'), filtre=$('filtre'), tri=$('tri'), filtreOrigine=$('origine'), filtreAxe=$('axe'), axesNav=$('axes-nav'), boutonTous=$('bouton-tous');
+const $=id=>document.getElementById(id), liste=$('liste'), recherche=$('recherche'), filtre=$('filtre'), tri=$('tri'), filtreOrigine=$('origine'), filtreAxe=$('axe'), axesNav=$('axes-nav'), boutonTous=$('bouton-tous'), boutonGenerale=$('bouton-general');
 
 function axeDe(gtId){const g=GROUPES.find(x=>x.id===gtId);return g?g.axe:null}
+function trouverGroupe(id){return (DOC_GENERALE&&id===DOC_GENERALE.id)?DOC_GENERALE:GROUPES.find(x=>x.id===id)}
 
 function correspond(r,{ignorer}={}){
   const q=recherche.value.trim().toLowerCase();
@@ -165,6 +169,10 @@ function majEtatsNav(){
   const q=recherche.value.trim();
   boutonTous.classList.toggle('actif',actif==='tous'&&!q);
   $('nb-tous').textContent=RESSOURCES.length;
+  if(DOC_GENERALE){
+    boutonGenerale.classList.toggle('actif',actif===DOC_GENERALE.id&&!q);
+    $('nb-general').textContent=RESSOURCES.filter(r=>r.gt===DOC_GENERALE.id).length;
+  }
   document.querySelectorAll('.groupe').forEach(b=>{
     const nom=b.querySelector('span').textContent;
     const g=GROUPES.find(x=>x.nom===nom);
@@ -181,7 +189,7 @@ function majOptions(){
 }
 
 function carte(r,avecGroupe){
-  const g=GROUPES.find(x=>x.id===r.gt),meta=GENRES[r.genre]||GENRES.document,li=document.createElement('li');li.className='ressource';li.id=`res-${r.id}`;
+  const g=trouverGroupe(r.gt),meta=GENRES[r.genre]||GENRES.document,li=document.createElement('li');li.className='ressource';li.id=`res-${r.id}`;
   const permalien=`${location.origin}${location.pathname}?id=${encodeURIComponent(r.id)}`;
   const externe=/^https?:/.test(r.lien);
   li.innerHTML=`<span class="picto" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="${meta[1]}"></path></svg></span>
@@ -218,12 +226,12 @@ function rendre(){
   $('intro').innerHTML = q
     ? '<h2>Résultats de recherche</h2><p>Toutes les ressources correspondant à votre recherche, tous chantiers confondus.</p>'
     : actif==='tous'
-      ? '<h2>Tous les chantiers</h2><p>L\'ensemble des ressources publiées par les six groupes de travail.</p>'
-      : (()=>{const g=GROUPES.find(x=>x.id===actif);return `<h2>${g.nom}</h2><p>${g.intro}</p>`})();
+      ? '<h2>Tous les chantiers</h2><p>L\'ensemble des ressources publiées par les six groupes de travail et la documentation générale.</p>'
+      : (()=>{const g=trouverGroupe(actif);return g?`<h2>${g.nom}</h2><p>${g.intro}</p>`:''})();
   $('compteur').textContent=`${items.length} ressource${items.length!==1?'s':''}`;
   liste.innerHTML='';
   if(!items.length){
-    const g=actif!=='tous'&&!q?GROUPES.find(x=>x.id===actif):null;
+    const g=actif!=='tous'&&!q?trouverGroupe(actif):null;
     vide(q?'Aucun résultat':(g?'Pas encore de ressource ici':'Aucune ressource'),
          q?'Essayez un autre terme ou réinitialisez les filtres.':(g?'Les documents de ce chantier seront déposés au fil des séances.':'Modifiez ou réinitialisez les filtres.'));
     return;
@@ -232,6 +240,7 @@ function rendre(){
 }
 
 boutonTous.addEventListener('click',()=>{actif='tous';recherche.value='';rendre()});
+boutonGenerale.addEventListener('click',()=>{if(DOC_GENERALE){actif=DOC_GENERALE.id;recherche.value='';rendre()}});
 $('effacer-recherche').addEventListener('click',()=>{recherche.value='';recherche.focus();rendre()});
 $('reinitialiser').addEventListener('click',()=>{
   recherche.value='';filtre.value='tous';filtreOrigine.value='toutes';filtreAxe.value='tous';tri.value='ordre';actif='tous';rendre();
@@ -242,7 +251,8 @@ Promise.all([
   fetch('data/config.json').then(r=>r.json()),
   fetch('data/groupes.json').then(r=>r.json())
 ]).then(([config,data])=>{
-  AXES=data.axes.slice().sort((a,b)=>a.numero-b.numero);GROUPES=data.groupes;
+  AXES=data.axes.slice().sort((a,b)=>a.numero-b.numero);GROUPES=data.groupes;DOC_GENERALE=data.documentationGenerale||null;
+  if(!DOC_GENERALE) boutonGenerale.style.display='none';
   filtreAxe.innerHTML='<option value="tous">Tous les axes</option>'+AXES.map(a=>`<option value="${a.id}">${a.nom}</option>`).join('');
   return fetch(`${config.supabaseUrl}/rest/v1/ressources?select=*`,{headers:{apikey:config.supabaseAnonKey,Authorization:`Bearer ${config.supabaseAnonKey}`}}).then(r=>r.json());
 }).then(ressources=>{
@@ -253,7 +263,7 @@ Promise.all([
     const cible=RESSOURCES.find(r=>r.id===paramId);
     actif = cible ? cible.gt : 'tous';
   } else {
-    actif = GROUPES.some(g=>g.id===paramGt) ? paramGt : 'tous';
+    actif = (GROUPES.some(g=>g.id===paramGt) || (DOC_GENERALE&&paramGt===DOC_GENERALE.id)) ? paramGt : 'tous';
   }
   if(paramOrigine==='gt'||paramOrigine==='externe') filtreOrigine.value=paramOrigine;
   $('stat-groupes').textContent=GROUPES.length;$('stat-ressources').textContent=RESSOURCES.length;

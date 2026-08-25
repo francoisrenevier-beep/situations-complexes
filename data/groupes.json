@@ -62,5 +62,10 @@
       "nom": "Révision du processus de transition mineurs-majeurs",
       "intro": "Les travaux sur le passage entre le dispositif mineurs et le dispositif majeurs, et sur ce qui se transmet à ce moment-là."
     }
-  ]
+  ],
+  "documentationGenerale": {
+    "id": "general",
+    "nom": "Documentation générale",
+    "intro": "Rapports, études et documents transverses au dispositif — non rattachés à un groupe de travail ou un axe en particulier."
+  }
 }
