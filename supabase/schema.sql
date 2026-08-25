@@ -10,6 +10,8 @@ create table ressources (
   titre text not null,
   texte text default '',
   lien text not null,
+  poids text,
+  ordre integer,
   created_at timestamptz default now()
 );
 
