@@ -10,57 +10,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/theme.css">
 <style>
-.bandeau{background:var(--surface);padding:26px 0 60px;border-bottom:1px solid var(--trait)}
-.entete{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:58px;flex-wrap:wrap}
-.entete .co-marque .logo-avop{height:56px}
+.bandeau{background:var(--surface);padding:26px 0 56px}
+.entete{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:64px;flex-wrap:wrap}
+.entete .co-marque .logo-avop{height:52px}
 .lien-ressources{display:inline-flex;align-items:center;min-height:var(--cible);font:600 12.5px var(--texte);letter-spacing:.03em;color:var(--encre);text-decoration:none;border:1px solid var(--trait);border-radius:30px;padding:0 20px;transition:.15s}
 .lien-ressources:hover{border-color:var(--rouge-avop);color:var(--rouge-avop)}
 
-.nom-complet{font-style:italic;color:var(--sourdine);font-size:.95rem;max-width:640px;margin:0 0 20px}
-h1{font:600 clamp(2.9rem,7.5vw,5.5rem)/.98 var(--titre);max-width:820px;margin:16px 0 24px}
-.chapo{color:var(--sourdine);font-size:1.1rem;line-height:1.65;max-width:620px;margin:0 0 30px}
+h1{font:600 clamp(3rem,7.5vw,5.8rem)/.98 var(--titre);max-width:820px;margin:16px 0 26px}
+.chapo{color:var(--sourdine);font-size:1.15rem;line-height:1.6;max-width:600px;margin:0 0 34px}
+.chapo strong{color:var(--encre);font-weight:600}
 
-.public{display:flex;gap:14px;align-items:flex-start;max-width:620px;background:var(--papier);border:1px solid var(--trait);border-left:3px solid var(--rouge-avop);border-radius:var(--rayon);padding:16px 20px;margin-bottom:30px}
-.public svg{flex:0 0 20px;margin-top:3px;stroke:var(--rouge-avop);fill:none;stroke-width:1.6}
-.public p{margin:0;font-size:.95rem}
-.public strong{font-weight:600}
+.cta-ligne{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-bottom:44px}
 
-.cta-ligne{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:38px}
+.stats-ligne{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5em;color:var(--sourdine);font-size:1rem;margin:0}
+.stats-ligne strong{font:700 1.05em var(--titre);color:var(--encre)}
+.stats-ligne .sep{opacity:.4;padding:0 .2em}
 
-.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--trait);border-radius:var(--rayon-lg);overflow:hidden;background:var(--surface);max-width:680px}
-.stat{padding:18px 18px;border-left:1px solid var(--trait)}
-.stat:first-child{border-left:0}
-.stat strong{display:block;font:700 1.7rem/1 var(--titre);font-variant-numeric:tabular-nums;color:var(--encre);margin-bottom:6px}
-.stat span{font:600 10.5px var(--texte);color:var(--sourdine);text-transform:uppercase;letter-spacing:.05em;line-height:1.3}
-
-section.bloc{padding:64px 0}
-section.bloc.contraste{background:var(--surface);border-top:1px solid var(--trait);border-bottom:1px solid var(--trait)}
-.bloc-tete{max-width:680px;margin-bottom:36px}
-.bloc-tete h2{font:600 2.1rem/1.15 var(--titre);margin:14px 0 12px}
+section.bloc{padding:72px 0}
+section.bloc.contraste{background:var(--surface)}
+.bloc-tete{max-width:600px;margin-bottom:44px}
+.bloc-tete h2{font:600 2.1rem/1.15 var(--titre);margin:14px 0 10px}
 .bloc-tete p{color:var(--sourdine);margin:0}
 
-/* Sommaire : trois axes, six chantiers — liste-dossier, pas une grille de cartes */
-.axe-section{margin-bottom:8px}
-.axe-section + .axe-section{margin-top:46px}
-.axe-entete{display:flex;gap:20px;align-items:baseline;margin-bottom:16px;padding-bottom:16px;border-bottom:2px solid var(--encre)}
-.axe-chiffre{flex:0 0 auto;font:700 2.5rem/1 var(--titre);font-variant-numeric:tabular-nums;color:var(--rouge-avop)}
-.axe-entete h3{font:600 1.4rem/1.2 var(--titre);margin:0 0 4px}
-.axe-entete p{margin:0;color:var(--sourdine);font-size:.95rem;max-width:560px}
-
-.chantiers-liste{list-style:none;margin:0;padding:0}
-.chantier{display:grid;grid-template-columns:56px 1fr auto 24px;gap:18px;align-items:center;padding:20px 8px;border-bottom:1px solid var(--trait);text-decoration:none;color:inherit;transition:background .15s}
-.chantier:hover{background:var(--surface)}
-section.bloc.contraste .chantier:hover{background:var(--papier)}
-.chantier .numero-signature{font-size:1.7rem}
-.chantier h4{font:600 1.1rem/1.3 var(--titre);margin:0 0 4px}
-.chantier p{margin:0;color:var(--sourdine);font-size:.92rem;max-width:560px}
-.chantier-etat{white-space:nowrap;justify-self:end}
-.chantier-fleche{color:var(--rouge-avop);font:20px var(--titre);text-align:center}
-.toutes-ressources{margin-top:28px;display:inline-flex}
+/* Sommaire : trois colonnes d'axe, sans bordures — l'espace fait la structure */
+.axes-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 40px}
+.axe-label{font:700 11.5px var(--titre);letter-spacing:.08em;text-transform:uppercase;color:var(--rouge-avop);margin:0 0 6px}
+.axe-col h3{font:600 1.2rem/1.25 var(--titre);margin:0 0 22px}
+.chantiers-mini{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px}
+.chantiers-mini a{display:block;text-decoration:none;color:inherit}
+.chantiers-mini .num{font:700 .8rem var(--titre);color:var(--rouge-avop);font-variant-numeric:tabular-nums}
+.chantiers-mini .txt{font:500 1rem/1.35 var(--titre);color:var(--encre)}
+.chantiers-mini a:hover .txt{color:var(--rouge-avop)}
+.chantiers-mini .etat{display:block;margin-top:4px;font:500 12.5px var(--texte);color:var(--sourdine)}
+.chantiers-mini .etat.dispo{color:var(--vert-texte)}
+.toutes-ressources{margin-top:44px;display:inline-flex}
 
 .dispositif-corps{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
-.dispositif-texte p{margin:0 0 16px;max-width:520px}
-.dispositif-texte p:last-child{margin-bottom:0}
+.dispositif-texte p{margin:0;max-width:520px}
 .dispositif-media{display:flex;flex-direction:column;gap:16px}
 .video-cadre{position:relative;width:100%;aspect-ratio:16/9;background:var(--encre);border-radius:var(--rayon-lg);overflow:hidden}
 .video-cadre iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -70,16 +56,9 @@ section.bloc.contraste .chantier:hover{background:var(--papier)}
 .video-defaut span{font:12px var(--texte);letter-spacing:.02em;color:#c9cac6;max-width:260px}
 
 @media(max-width:760px){
-  .entete{margin-bottom:40px}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .stat:nth-child(3){border-left:0}
+  .entete{margin-bottom:44px}
+  .axes-grille{grid-template-columns:1fr;gap:36px}
   .dispositif-corps{grid-template-columns:1fr;gap:30px}
-  .chantier{grid-template-columns:40px 1fr;grid-template-areas:"num titre" "num etat" "num fleche";row-gap:8px}
-  .chantier .numero-signature{grid-area:num;font-size:1.3rem}
-  .chantier-corps{grid-area:titre}
-  .chantier-etat{grid-area:etat;justify-self:start}
-  .chantier-fleche{display:none}
-  .axe-chiffre{font-size:1.9rem}
 }
 </style>
 </head>
@@ -96,22 +75,15 @@ section.bloc.contraste .chantier:hover{background:var(--papier)}
 </div>
 <p class="etiquette">Dispositif cantonal</p>
 <h1>Situations<br>complexes</h1>
-<p class="nom-complet">Projet de dispositif cantonal d'accompagnement des situations complexes pour les personnes adultes en situation de handicap</p>
-<p class="chapo">Bienvenue sur l'espace du dispositif cantonal d'accompagnement des situations complexes. Vous y retrouvez les travaux menés depuis janvier 2024 par six groupes de travail réunis en trois axes — recensements de bonnes pratiques, outils d'autoévaluation, catalogues de formation — pensés pour être utiles au quotidien aux équipes qui accompagnent des personnes adultes en situation de handicap.</p>
-<div class="public"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8v8l9 5 9-5V8z"></path><path d="M12 12v9"></path><path d="m3 8 9 4 9-4"></path></svg><p><strong>Ce site s'adresse à tou·tes les professionnel·les</strong> des institutions sociales vaudoises qui accueillent des situations complexes — pas uniquement aux membres des groupes de travail.</p></div>
-<div class="cta-ligne"><a class="bouton" href="ressources.html">Parcourir les ressources →</a><a class="lien-texte" href="#chantiers">Voir les trois axes et six chantiers ↓</a></div>
-<div class="stats">
-  <div class="stat"><strong>2024</strong><span>Lancement du dispositif</span></div>
-  <div class="stat"><strong id="stat-axes">—</strong><span>Axes de travail</span></div>
-  <div class="stat"><strong id="stat-chantiers">—</strong><span>Groupes de travail</span></div>
-  <div class="stat"><strong id="stat-ressources">—</strong><span>Ressources disponibles</span></div>
-</div>
+<p class="chapo">Depuis 2024, six groupes de travail réunis en trois axes accompagnent les institutions vaudoises face aux situations complexes. <strong>Ce site s'adresse à toutes les équipes concernées</strong>, pas seulement aux membres des groupes de travail.</p>
+<div class="cta-ligne"><a class="bouton" href="ressources.html">Parcourir les ressources →</a><a class="lien-texte" href="#chantiers">Voir la structure ↓</a></div>
+<p class="stats-ligne"><strong>2024</strong> lancement<span class="sep">·</span><strong>3</strong> axes<span class="sep">·</span><strong id="stat-chantiers">—</strong> groupes de travail<span class="sep">·</span><strong id="stat-ressources">—</strong> ressources</p>
 </div></header>
 
 <main>
 <section class="bloc" id="chantiers"><div class="enveloppe">
-<div class="bloc-tete"><p class="etiquette">Structure du dispositif</p><h2>Trois axes, six chantiers</h2><p>Chaque chantier avance à son rythme : certains ont déjà publié leurs premiers documents, d'autres sont encore en travaux. Choisissez un chantier pour accéder à ses ressources, quel que soit son état d'avancement.</p></div>
-<div id="sommaire" aria-live="polite"></div>
+<div class="bloc-tete"><p class="etiquette">Structure du dispositif</p><h2>Trois axes, six chantiers</h2><p>Choisissez un chantier pour accéder à ses ressources, quel que soit son état d'avancement.</p></div>
+<div class="axes-grille" id="sommaire" aria-live="polite"></div>
 <a class="lien-texte toutes-ressources" href="ressources.html">Voir toutes les ressources, tous chantiers confondus →</a>
 </div></section>
 
@@ -120,8 +92,7 @@ section.bloc.contraste .chantier:hover{background:var(--papier)}
 <div class="bloc-tete"><p class="etiquette">Le dispositif</p><h2>Qu'est-ce que le dispositif situations complexes ?</h2></div>
 <div class="dispositif-corps">
 <div class="dispositif-texte">
-<p>Une situation est dite complexe lorsque, en complément d'une déficience intellectuelle, d'un polyhandicap ou d'un handicap physique, elle présente une ou plusieurs comorbidités (psychiatriques, TSA, addictions) et/ou des comportements-défis dont l'intensité, la fréquence ou la durée deviennent critiques pour la personne elle-même, son entourage et son intégration dans la collectivité.</p>
-<p>Porté par la Direction générale de la cohésion sociale (DGCS) et l'AVOP depuis janvier 2024, le dispositif réunit professionnel·les de terrain, directions d'établissements, secteur socio-sanitaire, autorités cantonales et représentant·es des familles au sein de six groupes de travail thématiques, structurés en trois axes : Environnement, Soutien aux équipes et Orientation.</p>
+<p>Une situation est dite complexe lorsqu'un handicap s'accompagne d'une ou plusieurs comorbidités — psychiatriques, TSA, addictions — ou de comportements-défis qui deviennent critiques pour la personne, son entourage et son intégration. Porté par la DGCS et l'AVOP depuis 2024, le dispositif réunit professionnel·les de terrain, directions, secteur socio-sanitaire, autorités cantonales et familles.</p>
 </div>
 <div class="dispositif-media">
 <div class="video-cadre">
@@ -142,8 +113,7 @@ section.bloc.contraste .chantier:hover{background:var(--papier)}
   <span class="logo-vaud-attente">+ logo État de Vaud</span>
 </div>
 <p class="etiquette">Dispositif cantonal</p>
-<p>Le dispositif cantonal d'accompagnement des situations complexes est porté par la Direction générale de la cohésion sociale (DGCS) et l'Association vaudoise des organisations privées pour personnes en difficulté (AVOP), depuis janvier 2024. Ce site présente ses travaux à l'attention des professionnel·les des institutions sociales vaudoises concernées.</p>
-<p>Une question sur le dispositif ou ces ressources ? Contactez l'AVOP.</p>
+<p>Porté par la Direction générale de la cohésion sociale (DGCS) et l'AVOP depuis 2024. Une question sur le dispositif ou ces ressources ? Contactez l'AVOP.</p>
 </div></footer>
 
 <script>
@@ -153,25 +123,24 @@ Promise.all([
   fetch('data/config.json').then(r=>r.json())
 ]).then(([data,config])=>fetch(`${config.supabaseUrl}/rest/v1/ressources?select=id,gt`,{headers:{apikey:config.supabaseAnonKey,Authorization:`Bearer ${config.supabaseAnonKey}`}}).then(r=>r.json()).then(rows=>{
   const AXES=data.axes.slice().sort((a,b)=>a.numero-b.numero), GROUPES=data.groupes;
-  document.getElementById('stat-axes').textContent=AXES.length;
   document.getElementById('stat-chantiers').textContent=GROUPES.length;
   document.getElementById('stat-ressources').textContent=rows.length;
 
   const sommaire=document.getElementById('sommaire');
   AXES.forEach(axe=>{
     const chantiers=GROUPES.filter(g=>g.axe===axe.id).sort((a,b)=>a.numero-b.numero);
-    const section=document.createElement('div');section.className='axe-section';
-    section.innerHTML=`<div class="axe-entete"><span class="axe-chiffre">${pad(axe.numero)}</span><div><h3>Axe — ${axe.nom}</h3><p>${axe.intro}</p></div></div>`;
-    const ul=document.createElement('ul');ul.className='chantiers-liste';
+    const col=document.createElement('div');col.className='axe-col';
+    col.innerHTML=`<p class="axe-label">Axe ${pad(axe.numero)}</p><h3>${axe.nom}</h3>`;
+    const ul=document.createElement('ul');ul.className='chantiers-mini';
     chantiers.forEach(g=>{
       const nb=rows.filter(r=>r.gt===g.id).length;
       const li=document.createElement('li');
-      const a=document.createElement('a');a.className='chantier';a.href=`ressources.html?gt=${g.id}`;
-      const etat=nb>0?`<span class="etiquette">${nb} ressource${nb!==1?'s':''} disponible${nb!==1?'s':''}</span>`:`<span class="etiquette neutre">Travaux en cours</span>`;
-      a.innerHTML=`<span class="numero-signature">${pad(g.numero)}</span><span class="chantier-corps"><h4>${g.nom}</h4><p>${g.intro}</p></span><span class="chantier-etat">${etat}</span><span class="chantier-fleche" aria-hidden="true">→</span>`;
+      const a=document.createElement('a');a.href=`ressources.html?gt=${g.id}`;
+      const etat=nb>0?`<span class="etat dispo">${nb} ressource${nb!==1?'s':''}</span>`:`<span class="etat">À venir</span>`;
+      a.innerHTML=`<span class="num">${pad(g.numero)}</span> <span class="txt">${g.nom}</span>${etat}`;
       li.appendChild(a);ul.appendChild(li);
     });
-    section.appendChild(ul);sommaire.appendChild(section);
+    col.appendChild(ul);sommaire.appendChild(col);
   });
 })).catch(()=>{document.getElementById('sommaire').innerHTML='<p>Impossible de charger la structure du dispositif pour le moment.</p>'});
 </script>
