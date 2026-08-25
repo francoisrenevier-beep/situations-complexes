@@ -26,6 +26,21 @@ h1{font:600 clamp(3rem,7.5vw,5.8rem)/.98 var(--titre);max-width:820px;margin:16p
 .stats-ligne strong{font:700 1.05em var(--titre);color:var(--encre)}
 .stats-ligne .sep{opacity:.4;padding:0 .2em}
 
+/* Repère graphique : trois nœuds d'axe (rouge) reliés à six nœuds de chantier
+   (vert) — un aperçu abstrait de la structure du dispositif, pas une image
+   décorative gratuite. */
+.hero-grille{display:grid;grid-template-columns:1fr;align-items:center;gap:20px}
+.hero-visuel{display:none}
+.hero-visuel svg{width:100%;height:auto;max-width:300px;margin-left:auto}
+.hero-visuel .fond{fill:var(--rouge-teinte)}
+.hero-visuel line{stroke:var(--trait);stroke-width:1.5}
+.hero-visuel .noeud-axe{fill:var(--rouge-avop)}
+.hero-visuel .noeud-chantier{fill:var(--vert-vaud)}
+@media(min-width:980px){
+  .hero-grille{grid-template-columns:1.3fr .7fr}
+  .hero-visuel{display:block}
+}
+
 section.bloc{padding:72px 0}
 section.bloc.contraste{background:var(--surface)}
 .bloc-tete{max-width:600px;margin-bottom:44px}
@@ -34,14 +49,18 @@ section.bloc.contraste{background:var(--surface)}
 
 /* Sommaire : trois colonnes d'axe, sans bordures — l'espace fait la structure */
 .axes-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 40px}
+.axe-icone{width:34px;height:34px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.axe-icone svg{width:26px;height:26px;stroke:var(--rouge-avop);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .axe-label{font:700 11.5px var(--titre);letter-spacing:.08em;text-transform:uppercase;color:var(--rouge-avop);margin:0 0 6px}
-.axe-col h3{font:600 1.2rem/1.25 var(--titre);margin:0 0 22px}
-.chantiers-mini{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px}
-.chantiers-mini a{display:block;text-decoration:none;color:inherit}
-.chantiers-mini .num{font:700 .8rem var(--titre);color:var(--rouge-avop);font-variant-numeric:tabular-nums}
-.chantiers-mini .txt{font:500 1rem/1.35 var(--titre);color:var(--encre)}
+.axe-col h3{font:600 1.3rem/1.25 var(--titre);margin:0 0 24px}
+.chantiers-mini{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:26px}
+.chantiers-mini a{display:flex;gap:12px;align-items:flex-start;text-decoration:none;color:inherit}
+.chantiers-mini .num{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--rouge-avop);color:var(--rouge-avop);font:700 .74rem var(--titre);font-variant-numeric:tabular-nums;margin-top:1px}
+.chantiers-mini a:hover .num{background:var(--rouge-avop);color:#fff}
+.chantiers-mini .corps{min-width:0}
+.chantiers-mini .txt{display:block;font:600 1.1rem/1.35 var(--titre);color:var(--encre)}
 .chantiers-mini a:hover .txt{color:var(--rouge-avop)}
-.chantiers-mini .etat{display:block;margin-top:4px;font:500 12.5px var(--texte);color:var(--sourdine)}
+.chantiers-mini .etat{display:block;margin-top:5px;font:500 13.5px var(--texte);color:var(--sourdine)}
 .chantiers-mini .etat.dispo{color:var(--vert-texte)}
 .toutes-ressources{margin-top:44px;display:inline-flex}
 
@@ -73,11 +92,34 @@ section.bloc.contraste{background:var(--surface)}
   </div>
   <nav><a class="lien-ressources" href="ressources.html">Ressources des groupes de travail →</a></nav>
 </div>
+<div class="hero-grille">
+<div class="hero-texte">
 <p class="etiquette">Dispositif cantonal</p>
 <h1>Situations<br>complexes</h1>
 <p class="chapo">Depuis 2024, six groupes de travail réunis en trois axes accompagnent les institutions vaudoises face aux situations complexes. <strong>Ce site s'adresse à toutes les équipes concernées</strong>, pas seulement aux membres des groupes de travail.</p>
 <div class="cta-ligne"><a class="bouton" href="ressources.html">Parcourir les ressources →</a><a class="lien-texte" href="#chantiers">Voir la structure ↓</a></div>
 <p class="stats-ligne"><strong>2024</strong> lancement<span class="sep">·</span><strong>3</strong> axes<span class="sep">·</span><strong id="stat-chantiers">—</strong> groupes de travail<span class="sep">·</span><strong id="stat-ressources">—</strong> ressources</p>
+</div>
+<div class="hero-visuel" aria-hidden="true">
+<svg viewBox="0 0 300 300"><circle class="fond" cx="150" cy="150" r="140"></circle>
+<line x1="86" y1="64" x2="46" y2="112"></line>
+<line x1="86" y1="64" x2="134" y2="92"></line>
+<line x1="222" y1="140" x2="266" y2="92"></line>
+<line x1="222" y1="140" x2="272" y2="168"></line>
+<line x1="222" y1="140" x2="196" y2="196"></line>
+<line x1="102" y1="248" x2="156" y2="272"></line>
+<circle class="noeud-axe" cx="86" cy="64" r="14"></circle>
+<circle class="noeud-axe" cx="222" cy="140" r="14"></circle>
+<circle class="noeud-axe" cx="102" cy="248" r="14"></circle>
+<circle class="noeud-chantier" cx="46" cy="112" r="7"></circle>
+<circle class="noeud-chantier" cx="134" cy="92" r="7"></circle>
+<circle class="noeud-chantier" cx="266" cy="92" r="7"></circle>
+<circle class="noeud-chantier" cx="272" cy="168" r="7"></circle>
+<circle class="noeud-chantier" cx="196" cy="196" r="7"></circle>
+<circle class="noeud-chantier" cx="156" cy="272" r="7"></circle>
+</svg>
+</div>
+</div>
 </div></header>
 
 <main>
@@ -118,6 +160,11 @@ section.bloc.contraste{background:var(--surface)}
 
 <script>
 function pad(n){return String(n).padStart(2,'0')}
+const ICONES_AXE={
+  environnement:'<path d="M4 21V10.5L12 5l8 5.5V21"/><path d="M9.5 21v-6.5h5V21"/>',
+  soutien:'<circle cx="9" cy="12" r="5"/><circle cx="15.5" cy="12" r="5"/>',
+  orientation:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5 13 13l-4.5 2.5L11 11z"/>'
+};
 Promise.all([
   fetch('data/groupes.json').then(r=>r.json()),
   fetch('data/config.json').then(r=>r.json())
@@ -130,14 +177,15 @@ Promise.all([
   AXES.forEach(axe=>{
     const chantiers=GROUPES.filter(g=>g.axe===axe.id).sort((a,b)=>a.numero-b.numero);
     const col=document.createElement('div');col.className='axe-col';
-    col.innerHTML=`<p class="axe-label">Axe ${pad(axe.numero)}</p><h3>${axe.nom}</h3>`;
+    const icone=ICONES_AXE[axe.id]||'';
+    col.innerHTML=`<div class="axe-icone"><svg viewBox="0 0 24 24" aria-hidden="true">${icone}</svg></div><p class="axe-label">Axe ${pad(axe.numero)}</p><h3>${axe.nom}</h3>`;
     const ul=document.createElement('ul');ul.className='chantiers-mini';
     chantiers.forEach(g=>{
       const nb=rows.filter(r=>r.gt===g.id).length;
       const li=document.createElement('li');
       const a=document.createElement('a');a.href=`ressources.html?gt=${g.id}`;
       const etat=nb>0?`<span class="etat dispo">${nb} ressource${nb!==1?'s':''}</span>`:`<span class="etat">À venir</span>`;
-      a.innerHTML=`<span class="num">${pad(g.numero)}</span> <span class="txt">${g.nom}</span>${etat}`;
+      a.innerHTML=`<span class="num">${pad(g.numero)}</span><span class="corps"><span class="txt">${g.nom}</span>${etat}</span>`;
       li.appendChild(a);ul.appendChild(li);
     });
     col.appendChild(ul);sommaire.appendChild(col);
