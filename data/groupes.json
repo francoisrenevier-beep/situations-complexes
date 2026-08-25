@@ -1,24 +1,66 @@
 {
-  "groupes": [
+  "axes": [
     {
-      "id": "mima",
-      "nom": "Transition MiMa",
-      "intro": "Les travaux sur le passage entre le dispositif mineurs et le dispositif majeurs, et sur ce qui se transmet à ce moment-là."
+      "id": "environnement",
+      "numero": 1,
+      "nom": "Environnement",
+      "intro": "Planifier l'offre socio-éducative du canton et les infrastructures qui la rendent possible."
     },
     {
-      "id": "penibilite",
-      "nom": "Pénibilité au travail",
-      "intro": "Les mesures de réduction de la pénibilité pour les équipes qui accompagnent des situations complexes."
+      "id": "soutien",
+      "numero": 2,
+      "nom": "Soutien aux équipes",
+      "intro": "Outiller les équipes qui accompagnent des situations complexes au quotidien : violence, pénibilité, formation."
+    },
+    {
+      "id": "orientation",
+      "numero": 3,
+      "nom": "Orientation",
+      "intro": "Fluidifier les parcours des personnes accompagnées, en particulier au passage entre dispositifs mineurs et majeurs."
+    }
+  ],
+  "groupes": [
+    {
+      "id": "evaluation-besoins",
+      "axe": "environnement",
+      "numero": 1,
+      "nom": "Évaluation des besoins et planification de l'offre des établissements socio-éducatifs",
+      "intro": "Le recensement des besoins actuels et à venir, pour ajuster la planification cantonale de l'offre en hébergement et en accompagnement."
+    },
+    {
+      "id": "infrastructures",
+      "axe": "environnement",
+      "numero": 2,
+      "nom": "Commission des infrastructures d'hébergement et révision des DIESE",
+      "intro": "Le suivi des projets d'infrastructures d'hébergement et la révision des directives DIESE qui encadrent leur financement et leur exploitation."
     },
     {
       "id": "violence",
-      "nom": "Concept d’accompagnement et gestion de la violence",
+      "axe": "soutien",
+      "numero": 3,
+      "nom": "Concept d'accompagnement et de gestion de la violence",
       "intro": "Le cadre de référence et les outils pour prévenir, désamorcer et suivre les situations de violence, construits avec professionnel·les de terrain, directions, secteur socio-sanitaire et représentant·es des familles."
     },
     {
+      "id": "penibilite",
+      "axe": "soutien",
+      "numero": 4,
+      "nom": "Mesures de réduction de la pénibilité des conditions de travail",
+      "intro": "Les mesures de réduction de la pénibilité pour les équipes qui accompagnent des situations complexes."
+    },
+    {
       "id": "formation",
-      "nom": "Formation",
-      "intro": "Les catalogues de formation continue mis à disposition des institutions, des bases sur l’autisme aux modules certifiants sur les comportements-défis et la violence interpersonnelle."
+      "axe": "soutien",
+      "numero": 5,
+      "nom": "Formation de base et continue",
+      "intro": "Les catalogues de formation continue mis à disposition des institutions, des bases sur l'autisme aux modules certifiants sur les comportements-défis et la violence interpersonnelle."
+    },
+    {
+      "id": "mima",
+      "axe": "orientation",
+      "numero": 6,
+      "nom": "Révision du processus de transition mineurs-majeurs",
+      "intro": "Les travaux sur le passage entre le dispositif mineurs et le dispositif majeurs, et sur ce qui se transmet à ce moment-là."
     }
   ]
 }

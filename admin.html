@@ -7,57 +7,63 @@
 <title>Administration — Situations complexes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/theme.css">
 <style>
-:root{--rouge:#b50f01;--noir:#0d0b0b;--papier:#f8f7f5;--surface:#fff;--trait:#e2dedb;--sourdine:#6b6462;--geo:"Inter",system-ui,sans-serif}
-*{box-sizing:border-box}body{margin:0;background:var(--papier);color:var(--noir);font:15px/1.5 var(--geo)}button,input,select,textarea{font:inherit}:focus-visible{outline:3px solid var(--rouge);outline-offset:2px}
-.enveloppe{max-width:920px;margin:auto;padding:0 24px}
-header{background:var(--surface);border-bottom:1px solid var(--trait);padding:20px 0}
-.entete{display:flex;align-items:center;justify-content:space-between}
-.marque{display:flex;align-items:center;gap:12px}.logo-avop{height:40px;width:auto}
-.marque strong{font:600 15px var(--geo)}
-nav a{color:var(--sourdine);text-decoration:none;font-size:13px;margin-left:18px}nav a:hover{color:var(--rouge)}
-main{padding:36px 0 80px}
-h1{font:600 1.6rem/1.2 var(--geo);margin:0 0 6px}
-.souscription{color:var(--sourdine);margin:0 0 28px}
-.carte{background:var(--surface);border:1px solid var(--trait);border-radius:6px;padding:24px;margin-bottom:24px}
-.champ{margin-bottom:16px}
-.champ label{display:block;font:500 12px var(--geo);letter-spacing:.02em;margin-bottom:6px;color:var(--sourdine)}
-.champ input[type=text],.champ input[type=password],.champ input[type=url],.champ select,.champ textarea{width:100%;border:1px solid var(--trait);border-radius:4px;padding:9px 11px;background:var(--papier);color:var(--noir)}
+body{font-size:15px}
+.enveloppe{max-width:960px}
+header{background:var(--surface);border-bottom:1px solid var(--trait);padding:18px 0}
+.entete{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.marque{display:flex;align-items:center;gap:12px}.marque .logo-avop{height:36px}.marque strong{font:600 14px var(--titre)}
+header nav a{color:var(--sourdine);text-decoration:none;font-size:13px;margin-left:18px}
+header nav a:hover{color:var(--rouge-avop)}
+main{padding:32px 0 80px}
+h1{font:600 1.6rem/1.2 var(--titre);margin:0 0 6px}
+.souscription{color:var(--sourdine);margin:0 0 26px}
+.carte{background:var(--surface);border:1px solid var(--trait);border-radius:var(--rayon-lg);padding:22px;margin-bottom:22px}
+.champ{margin-bottom:14px}
+.champ label{display:block;font:600 12px var(--texte);letter-spacing:.01em;margin-bottom:6px;color:var(--sourdine)}
+.champ .aide{font-size:11.5px;color:var(--sourdine);margin-top:4px}
+.champ .erreur-champ{font-size:12px;color:var(--rouge-avop);margin-top:4px}
+.champ input[type=text],.champ input[type=password],.champ input[type=email],.champ input[type=url],.champ select,.champ textarea{width:100%;border:1px solid var(--trait);border-radius:var(--rayon);padding:9px 11px;background:var(--papier);color:var(--encre);min-height:40px}
 .champ textarea{min-height:70px;resize:vertical}
-.grille2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.grille3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
-.bouton{display:inline-flex;align-items:center;gap:8px;background:var(--noir);color:#fff;border:0;border-radius:4px;padding:10px 18px;font:500 14px var(--geo);cursor:pointer}
-.bouton:hover{background:var(--rouge)}
-.bouton.secondaire{background:none;color:var(--noir);border:1px solid var(--trait)}
-.bouton.secondaire:hover{background:var(--papier);color:var(--rouge);border-color:var(--rouge)}
-.bouton.danger{background:none;color:var(--rouge);border:1px solid var(--trait)}
-.bouton.danger:hover{background:#fdecea;border-color:var(--rouge)}
-.bouton[disabled]{opacity:.5;cursor:default}
+.grille2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grille3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.message{border-radius:4px;padding:10px 14px;font-size:13.5px;margin-bottom:16px}
+.message{border-radius:var(--rayon);padding:10px 14px;font-size:13.5px;margin-bottom:16px}
 .message.erreur{background:#fdecea;color:#8a1c12}
 .message.ok{background:#e9f6ec;color:#1e6b32}
-.groupe-bloc{margin-bottom:32px}
-.groupe-bloc h2{font:600 1.05rem var(--geo);margin:0 0 4px}
-.groupe-bloc .nb{color:var(--sourdine);font-size:12.5px;margin:0 0 12px}
-.ressource-ligne{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--trait)}
+.axe-bloc{margin-bottom:34px}
+.axe-bloc > h2{font:600 1.1rem var(--titre);margin:0 0 2px}
+.axe-bloc > p.intro-axe{color:var(--sourdine);font-size:12.5px;margin:0 0 14px}
+.groupe-bloc{margin-bottom:22px;padding-left:14px;border-left:3px solid var(--trait)}
+.groupe-bloc h3{font:600 1rem var(--titre);margin:0 0 4px}
+.groupe-bloc .nb{color:var(--sourdine);font-size:12px;margin:0 0 10px}
+.ressource-ligne{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--trait)}
 .ressource-ligne:last-child{border-bottom:0}
+.reordonner{display:flex;flex-direction:column;gap:2px;flex:0 0 auto}
+.reordonner button{width:28px;height:28px;border:1px solid var(--trait);background:var(--surface);border-radius:4px;cursor:pointer;color:var(--sourdine);font-size:12px;line-height:1}
+.reordonner button:hover:not(:disabled){border-color:var(--rouge-avop);color:var(--rouge-avop)}
+.reordonner button:disabled{opacity:.35;cursor:default}
 .ressource-corps{flex:1;min-width:0}
-.ressource-corps .meta{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--sourdine);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:3px}
+.ressource-corps .meta{font-size:11px;letter-spacing:.03em;text-transform:uppercase;color:var(--sourdine);display:flex;gap:8px;flex-wrap:wrap;margin-bottom:3px}
 .ressource-corps .meta .badge{border:1px solid var(--trait);border-radius:20px;padding:0 8px}
-.ressource-corps h3{font:500 1rem var(--geo);margin:0 0 3px}
-.ressource-corps p{margin:0;color:var(--sourdine);font-size:13px}
-.ressource-corps a{color:var(--rouge);font-size:12px;word-break:break-all}
-.login-cadre{max-width:360px;margin:80px auto 0}
+.ressource-corps h4{font:600 .98rem var(--titre);margin:0 0 3px}
+.ressource-corps p{margin:0 0 3px;color:var(--sourdine);font-size:12.5px}
+.ressource-corps a{color:var(--rouge-avop);font-size:11.5px;word-break:break-all}
+.ressource-actions-ligne{display:flex;gap:8px;flex:0 0 auto}
+.login-cadre{max-width:360px;margin:70px auto 0}
 .masque{display:none}
-.upload-etat{font-size:12.5px;color:var(--sourdine);margin-top:6px}
+.upload-etat{font-size:12px;color:var(--sourdine);margin-top:6px}
+.io-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.io-actions .aide{width:100%;font-size:12px;color:var(--sourdine);margin:0}
+.champ-fichier{display:inline-flex}
 </style>
 </head>
 <body>
 
 <header><div class="enveloppe entete">
-<div class="marque"><img class="logo-avop" src="assets/AVOP-logo.jpg" alt="AVOP"><strong>Administration des ressources</strong></div>
+<div class="marque"><img class="logo-avop" src="assets/AVOP-logo.webp" alt="AVOP"><strong>Administration des ressources</strong></div>
 <nav><a href="ressources.html">Voir le site public →</a> <a href="#" id="lien-deconnexion" class="masque">Se déconnecter</a></nav>
 </div></header>
 
@@ -78,16 +84,16 @@ h1{font:600 1.6rem/1.2 var(--geo);margin:0 0 6px}
 
 <section id="ecran-admin" class="masque">
   <h1>Ressources des groupes de travail</h1>
-  <p class="souscription">Ajoutez, modifiez ou supprimez les documents et liens publiés sur le site. Les changements sont mis en ligne automatiquement (~1 minute).</p>
+  <p class="souscription">Ajoutez, modifiez, réordonnez ou retirez les documents et liens publiés sur le site. Les changements sont mis en ligne automatiquement (~1 minute).</p>
   <div id="message-admin"></div>
 
   <div class="carte">
-    <h2 id="titre-formulaire" style="margin:0 0 16px;font:600 1.05rem var(--geo)">Ajouter une ressource</h2>
-    <form id="form-ressource">
+    <h2 id="titre-formulaire" style="margin:0 0 16px;font:600 1.05rem var(--titre)">Ajouter une ressource</h2>
+    <form id="form-ressource" novalidate>
       <input type="hidden" id="r-id">
       <div class="grille3">
         <div class="champ"><label for="r-gt">Groupe de travail</label><select id="r-gt" required></select></div>
-        <div class="champ"><label for="r-genre">Genre</label>
+        <div class="champ"><label for="r-genre">Format</label>
           <select id="r-genre" required>
             <option value="document">Document</option>
             <option value="video">Vidéo</option>
@@ -103,22 +109,35 @@ h1{font:600 1.6rem/1.2 var(--geo);margin:0 0 6px}
         </div>
       </div>
       <div class="champ"><label for="r-titre">Titre</label><input type="text" id="r-titre" required></div>
-      <div class="champ"><label for="r-texte">Description courte</label><textarea id="r-texte"></textarea></div>
-      <div class="grille2">
+      <div class="champ"><label for="r-texte">Description en langage clair — à quoi ça sert pour une équipe</label><textarea id="r-texte" required placeholder="Ex. Un outil pour préparer la réunion de transition avec le futur établissement adulte."></textarea></div>
+      <div class="grille3">
         <div class="champ"><label for="r-date">Date</label><input type="text" id="r-date" placeholder="ex. février 2026"></div>
-        <div class="champ"><label for="r-duree">Durée (vidéo/présentation, optionnel)</label><input type="text" id="r-duree" placeholder="ex. 12 min"></div>
+        <div class="champ"><label for="r-duree">Durée (vidéo/présentation)</label><input type="text" id="r-duree" placeholder="ex. 12 min"></div>
+        <div class="champ"><label for="r-poids">Poids du fichier</label><input type="text" id="r-poids" placeholder="ex. 1,2 Mo"></div>
       </div>
       <div class="champ">
         <label for="r-lien">Lien</label>
         <input type="text" id="r-lien" placeholder="https://… ou déposez un fichier ci-dessous" required>
-        <input type="file" id="r-fichier" accept=".pdf,.xlsx,.xls,.docx,.doc,.pptx,.ppt" style="margin-top:8px">
+        <div class="aide">URL complète (https://…) requise, ou fichier déposé ci-dessous.</div>
+        <input class="champ-fichier" type="file" id="r-fichier" accept=".pdf,.xlsx,.xls,.docx,.doc,.pptx,.ppt" style="margin-top:8px">
         <div class="upload-etat" id="upload-etat"></div>
       </div>
+      <div id="erreurs-formulaire"></div>
       <div class="actions">
         <button class="bouton" type="submit" id="bouton-enregistrer">Ajouter la ressource</button>
         <button class="bouton secondaire masque" type="button" id="bouton-annuler">Annuler la modification</button>
       </div>
     </form>
+  </div>
+
+  <div class="carte">
+    <h2 style="margin:0 0 12px;font:600 1.05rem var(--titre)">Sauvegarde hors ligne</h2>
+    <div class="io-actions">
+      <button class="bouton secondaire" type="button" id="bouton-exporter">Exporter en JSON</button>
+      <label class="bouton secondaire" style="cursor:pointer" for="fichier-import">Importer un JSON</label>
+      <input type="file" id="fichier-import" accept="application/json" class="masque">
+      <p class="aide">L'export produit un fichier des ressources actuelles, à conserver comme sauvegarde. L'import ajoute ou met à jour les ressources du fichier choisi (les entrées incomplètes sont ignorées) — utile pour travailler hors ligne ou restaurer une version antérieure.</p>
+    </div>
   </div>
 
   <div id="liste-groupes"></div>
@@ -128,11 +147,10 @@ h1{font:600 1.6rem/1.2 var(--geo);margin:0 0 6px}
 
 <script>
 const $=id=>document.getElementById(id);
-let RESOURCES=[],GROUPES=[],CONFIG=null,SESSION=null;
+let RESOURCES=[],GROUPES=[],AXES=[],CONFIG=null,SESSION=null;
 
 function afficherMessage(zone,texte,type){zone.innerHTML=texte?`<div class="message ${type}">${texte}</div>`:'';}
 
-// --- Supabase : appels REST directs (auth, table, storage) ---
 async function supabase(path,options={}){
   const res=await fetch(`${CONFIG.supabaseUrl}${path}`,{
     ...options,
@@ -154,7 +172,6 @@ function sauverSession(session){
   else localStorage.removeItem('admin_session');
 }
 
-// --- Connexion ---
 $('form-connexion').addEventListener('submit',async(e)=>{
   e.preventDefault();
   const msg=$('message-connexion');afficherMessage(msg,'','');
@@ -180,51 +197,88 @@ function entrerAdmin(){
   $('ecran-connexion').classList.add('masque');
   $('ecran-admin').classList.remove('masque');
   $('lien-deconnexion').classList.remove('masque');
-  chargerDonnees();
+  chargerDonnees().catch(err=>afficherMessage($('message-admin'),`Impossible de charger les ressources : ${err.message}. La colonne "ordre" ou "poids" existe-t-elle sur la table (voir supabase/migration-ordre-poids.sql) ?`,'erreur'));
 }
 
 async function chargerDonnees(){
-  const groupesData=await fetch('data/groupes.json',{cache:'no-store'}).then(r=>r.json());
-  GROUPES=groupesData.groupes;
+  const data=await fetch('data/groupes.json',{cache:'no-store'}).then(r=>r.json());
+  AXES=data.axes.slice().sort((a,b)=>a.numero-b.numero);GROUPES=data.groupes;
+  // Tri côté client (et non via ?order=) pour rester compatible avec une base
+  // qui n'a pas encore reçu la migration ajoutant la colonne "ordre".
   RESOURCES=await supabase('/rest/v1/ressources?select=*');
-  const sel=$('r-gt');sel.innerHTML=GROUPES.map(g=>`<option value="${g.id}">${g.nom}</option>`).join('');
+  RESOURCES.sort((a,b)=>a.gt.localeCompare(b.gt)||((a.ordre??999999)-(b.ordre??999999))||(a.created_at||'').localeCompare(b.created_at||''));
+  const sel=$('r-gt');sel.innerHTML=AXES.map(axe=>`<optgroup label="Axe ${axe.numero} — ${axe.nom}">${GROUPES.filter(g=>g.axe===axe.id).map(g=>`<option value="${g.id}">${g.nom}</option>`).join('')}</optgroup>`).join('');
   rendreListe();
 }
 
 function rendreListe(){
   const zone=$('liste-groupes');zone.innerHTML='';
-  GROUPES.forEach(g=>{
-    const items=RESOURCES.filter(r=>r.gt===g.id);
-    const bloc=document.createElement('div');bloc.className='groupe-bloc';
-    bloc.innerHTML=`<h2>${g.nom}</h2><p class="nb">${items.length} ressource${items.length!==1?'s':''}</p>`;
-    if(!items.length){bloc.innerHTML+='<p class="souscription">Aucune ressource pour ce groupe.</p>'}
-    items.forEach(r=>{
-      const ligne=document.createElement('div');ligne.className='ressource-ligne';
-      ligne.innerHTML=`<div class="ressource-corps">
-        <div class="meta"><span>${r.genre}</span>${r.date?`<span>/ ${r.date}</span>`:''}${r.origine==='externe'?'<span class="badge">Externe</span>':''}</div>
-        <h3>${r.titre}</h3>
-        <p>${r.texte||''}</p>
-        <a href="${r.lien}" target="_blank" rel="noopener">${r.lien}</a>
-      </div>
-      <div class="actions">
-        <button class="bouton secondaire" data-modifier="${r.id}">Modifier</button>
-        <button class="bouton danger" data-supprimer="${r.id}">Supprimer</button>
-      </div>`;
-      bloc.appendChild(ligne);
+  AXES.forEach(axe=>{
+    const groupesAxe=GROUPES.filter(g=>g.axe===axe.id);
+    const blocAxe=document.createElement('div');blocAxe.className='axe-bloc';
+    blocAxe.innerHTML=`<h2>Axe ${axe.numero} — ${axe.nom}</h2><p class="intro-axe">${axe.intro}</p>`;
+    groupesAxe.forEach(g=>{
+      const items=RESOURCES.filter(r=>r.gt===g.id);
+      const bloc=document.createElement('div');bloc.className='groupe-bloc';
+      bloc.innerHTML=`<h3>${g.numero}. ${g.nom}</h3><p class="nb">${items.length} ressource${items.length!==1?'s':''}${!items.length?' — travaux en cours, aucune ressource publiée':''}</p>`;
+      items.forEach((r,i)=>{
+        const ligne=document.createElement('div');ligne.className='ressource-ligne';
+        ligne.innerHTML=`<div class="reordonner">
+          <button type="button" data-monter="${r.id}" aria-label="Monter « ${r.titre} »" ${i===0?'disabled':''}>▲</button>
+          <button type="button" data-descendre="${r.id}" aria-label="Descendre « ${r.titre} »" ${i===items.length-1?'disabled':''}>▼</button>
+        </div>
+        <div class="ressource-corps">
+          <div class="meta"><span>${r.genre}</span>${r.date?`<span>/ ${r.date}</span>`:''}${r.poids?`<span>/ ${r.poids}</span>`:''}${r.origine==='externe'?'<span class="badge">Externe</span>':''}</div>
+          <h4>${r.titre}</h4>
+          <p>${r.texte||''}</p>
+          <a href="${r.lien}" target="_blank" rel="noopener">${r.lien}</a>
+        </div>
+        <div class="ressource-actions-ligne">
+          <button class="bouton secondaire" data-modifier="${r.id}">Modifier</button>
+          <button class="bouton danger" data-supprimer="${r.id}">Supprimer</button>
+        </div>`;
+        bloc.appendChild(ligne);
+      });
+      blocAxe.appendChild(bloc);
     });
-    zone.appendChild(bloc);
+    zone.appendChild(blocAxe);
   });
   zone.querySelectorAll('[data-modifier]').forEach(b=>b.addEventListener('click',()=>chargerPourEdition(b.dataset.modifier)));
   zone.querySelectorAll('[data-supprimer]').forEach(b=>b.addEventListener('click',()=>supprimer(b.dataset.supprimer)));
+  zone.querySelectorAll('[data-monter]').forEach(b=>b.addEventListener('click',()=>reordonner(b.dataset.monter,'haut')));
+  zone.querySelectorAll('[data-descendre]').forEach(b=>b.addEventListener('click',()=>reordonner(b.dataset.descendre,'bas')));
+}
+
+// --- Réordonnancement manuel (colonne "ordre") ---
+async function reordonner(id,sens){
+  const r=RESOURCES.find(x=>x.id===id);if(!r)return;
+  const items=RESOURCES.filter(x=>x.gt===r.gt).sort((a,b)=>(a.ordre??999999)-(b.ordre??999999)||(a.created_at||'').localeCompare(b.created_at||''));
+  if(items.some(x=>x.ordre==null)){
+    await Promise.all(items.map((x,i)=>{x.ordre=i;return supabase(`/rest/v1/ressources?id=eq.${encodeURIComponent(x.id)}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({ordre:i})})}));
+  }
+  const idx=items.findIndex(x=>x.id===id);
+  const cible=idx+(sens==='haut'?-1:1);
+  if(cible<0||cible>=items.length)return;
+  const a=items[idx],b=items[cible];
+  const oa=a.ordre,ob=b.ordre;
+  a.ordre=ob;b.ordre=oa;
+  try{
+    await Promise.all([
+      supabase(`/rest/v1/ressources?id=eq.${encodeURIComponent(a.id)}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({ordre:a.ordre})}),
+      supabase(`/rest/v1/ressources?id=eq.${encodeURIComponent(b.id)}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({ordre:b.ordre})})
+    ]);
+  }catch(err){afficherMessage($('message-admin'),err.message,'erreur');a.ordre=oa;b.ordre=ob;}
+  rendreListe();
 }
 
 function chargerPourEdition(id){
   const r=RESOURCES.find(x=>x.id===id);if(!r)return;
   $('r-id').value=r.id;$('r-gt').value=r.gt;$('r-genre').value=r.genre;$('r-origine').value=r.origine;
-  $('r-titre').value=r.titre;$('r-texte').value=r.texte||'';$('r-date').value=r.date||'';$('r-duree').value=r.duree||'';$('r-lien').value=r.lien;
+  $('r-titre').value=r.titre;$('r-texte').value=r.texte||'';$('r-date').value=r.date||'';$('r-duree').value=r.duree||'';$('r-poids').value=r.poids||'';$('r-lien').value=r.lien;
   $('titre-formulaire').textContent='Modifier la ressource';
   $('bouton-enregistrer').textContent='Enregistrer les modifications';
   $('bouton-annuler').classList.remove('masque');
+  $('erreurs-formulaire').innerHTML='';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -234,13 +288,13 @@ function reinitialiserFormulaire(){
   $('bouton-enregistrer').textContent='Ajouter la ressource';
   $('bouton-annuler').classList.add('masque');
   $('upload-etat').textContent='';
+  $('erreurs-formulaire').innerHTML='';
 }
 $('bouton-annuler').addEventListener('click',reinitialiserFormulaire);
 
 const DIACRITICS=new RegExp('[̀-ͯ]','g');
 function slugify(t){return String(t).toLowerCase().normalize('NFD').replace(DIACRITICS,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60)}
 
-// --- Upload de fichier : envoyé directement au bucket Supabase, remplit le champ lien ---
 $('r-fichier').addEventListener('change',async()=>{
   const fichier=$('r-fichier').files[0];if(!fichier)return;
   const etat=$('upload-etat');etat.textContent='Envoi en cours…';
@@ -249,16 +303,35 @@ $('r-fichier').addEventListener('change',async()=>{
     await supabase(`/storage/v1/object/documents/${path}`,{method:'POST',headers:{'Content-Type':fichier.type||'application/octet-stream','x-upsert':'true'},body:fichier});
     const urlPublique=`${CONFIG.supabaseUrl}/storage/v1/object/public/documents/${path}`;
     $('r-lien').value=urlPublique;
+    if(fichier.size){const ko=fichier.size/1024;$('r-poids').value=ko<1024?`${Math.round(ko)} Ko`:`${(ko/1024).toFixed(1)} Mo`}
     etat.textContent=`Fichier envoyé : ${path}`;
   }catch(err){etat.textContent=`Échec de l'envoi : ${err.message}`}
 });
 
-// --- Créer / modifier une ressource ---
+// --- Validation : bloque toute entrée incomplète ou lien mal formé ---
+function validerRessource(p){
+  const erreurs=[];
+  if(!p.gt) erreurs.push('Le groupe de travail est requis.');
+  if(!p.genre) erreurs.push('Le format est requis.');
+  if(!p.titre) erreurs.push('Le titre est requis.');
+  if(!p.texte) erreurs.push("La description en langage clair est requise : elle doit dire à quoi la ressource sert pour une équipe.");
+  if(!p.lien) erreurs.push('Le lien est requis.');
+  else if(!/^https?:\/\/\S+$/i.test(p.lien)) erreurs.push('Le lien doit être une URL complète commençant par http:// ou https:// (déposez un fichier pour en obtenir une automatiquement).');
+  return erreurs;
+}
+
 $('form-ressource').addEventListener('submit',async(e)=>{
   e.preventDefault();
   const msg=$('message-admin');afficherMessage(msg,'','');
   const id=$('r-id').value;
-  const payload={gt:$('r-gt').value,genre:$('r-genre').value,origine:$('r-origine').value,titre:$('r-titre').value.trim(),texte:$('r-texte').value,date:$('r-date').value,duree:$('r-duree').value||null,lien:$('r-lien').value.trim()};
+  const payload={gt:$('r-gt').value,genre:$('r-genre').value,origine:$('r-origine').value,titre:$('r-titre').value.trim(),texte:$('r-texte').value.trim(),date:$('r-date').value,duree:$('r-duree').value||null,poids:$('r-poids').value||null,lien:$('r-lien').value.trim()};
+  const erreurs=validerRessource(payload);
+  const zoneErreurs=$('erreurs-formulaire');
+  if(erreurs.length){
+    zoneErreurs.innerHTML=`<div class="message erreur">${erreurs.join('<br>')}</div>`;
+    return;
+  }
+  zoneErreurs.innerHTML='';
   const boutonEnregistrer=$('bouton-enregistrer');boutonEnregistrer.disabled=true;
   try{
     let resource;
@@ -290,14 +363,47 @@ async function supprimer(id){
   }catch(err){afficherMessage(msg,err.message,'erreur')}
 }
 
-// Si une session valide existe déjà (localStorage), on tente directement l'accès admin.
+// --- Export / import JSON, pour le travail hors ligne et la restauration ---
+$('bouton-exporter').addEventListener('click',()=>{
+  const donnees={exporte_le:new Date().toISOString(),groupes:GROUPES,ressources:RESOURCES};
+  const blob=new Blob([JSON.stringify(donnees,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`ressources-situations-complexes-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);a.click();a.remove();
+  URL.revokeObjectURL(url);
+});
+
+$('fichier-import').addEventListener('change',async()=>{
+  const fichier=$('fichier-import').files[0];if(!fichier)return;
+  const msg=$('message-admin');afficherMessage(msg,'','');
+  try{
+    const texte=await fichier.text();
+    const donnees=JSON.parse(texte);
+    const ressourcesImportees=Array.isArray(donnees) ? donnees : donnees.ressources;
+    if(!Array.isArray(ressourcesImportees)) throw new Error('Format inattendu : le fichier doit contenir un tableau "ressources".');
+    const valides=[],invalides=[];
+    ressourcesImportees.forEach(r=>{
+      const erreurs=r&&r.id ? validerRessource(r) : ['id manquant'];
+      if(erreurs.length) invalides.push(r&&r.titre||r&&r.id||'(sans titre)');
+      else valides.push({id:r.id,gt:r.gt,genre:r.genre,origine:r.origine,titre:r.titre,texte:r.texte,date:r.date||'',duree:r.duree||null,poids:r.poids||null,lien:r.lien,ordre:r.ordre??null});
+    });
+    if(valides.length){
+      await supabase('/rest/v1/ressources?on_conflict=id',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=representation'},body:JSON.stringify(valides)});
+    }
+    await chargerDonnees();
+    afficherMessage(msg,`Import terminé : ${valides.length} ressource${valides.length!==1?'s':''} enregistrée${valides.length!==1?'s':''}${invalides.length?`, ${invalides.length} ignorée${invalides.length!==1?'s':''} (incomplètes) : ${invalides.join(', ')}`:''}.`, invalides.length?'erreur':'ok');
+  }catch(err){afficherMessage(msg,`Échec de l'import : ${err.message}`,'erreur')}
+  finally{$('fichier-import').value=''}
+});
+
 (async()=>{
   CONFIG=await fetch('data/config.json',{cache:'no-store'}).then(r=>r.json());
   const stockee=localStorage.getItem('admin_session');
   if(!stockee)return;
   try{
     SESSION=JSON.parse(stockee);
-    await supabase('/auth/v1/user'); // vérifie que le token est encore valide
+    await supabase('/auth/v1/user');
     entrerAdmin();
   }catch{sauverSession(null)}
 })();

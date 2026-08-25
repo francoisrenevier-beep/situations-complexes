@@ -7,40 +7,261 @@
 <title>Ressources des groupes de travail — Situations complexes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/theme.css">
 <style>
-:root{--rouge:#b50f01;--rouge-teinte:rgba(181,15,1,.08);--noir:#0d0b0b;--papier:#f8f7f5;--surface:#fff;--trait:#e2dedb;--sourdine:#6b6462;--geo:"Inter",system-ui,sans-serif;--serif:"Inter",system-ui,sans-serif;--mono:"Inter",system-ui,sans-serif;--rayon:14px}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}body{margin:0;background:var(--papier);color:var(--noir);font:17px/1.55 var(--serif)}button,input,select{font:inherit}:focus-visible{outline:3px solid var(--rouge);outline-offset:3px}.enveloppe{max-width:1120px;margin:auto;padding:0 28px}
-.bandeau{background:var(--surface);padding:24px 0 30px;border-bottom:1px solid var(--trait)}.entete{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.marque{display:flex;align-items:center;gap:12px}.logo-avop{height:52px;width:auto;display:block}.confidentiel{font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--sourdine)}.retour{font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--sourdine);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:14px;border:1px solid var(--trait);border-radius:30px;padding:7px 13px}.retour:hover{color:var(--rouge);border-color:var(--rouge)}.surtitre,.mention{display:inline-block;font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--rouge);background:var(--rouge-teinte);border-radius:20px;padding:5px 12px}h1{font:600 clamp(1.9rem,3.4vw,2.5rem)/1.15 var(--geo);letter-spacing:-.01em;max-width:720px;margin:14px 0 10px}.chapo{color:var(--sourdine);font-size:1.02rem;max-width:640px;margin:0}.chapo strong{color:var(--noir);font-weight:600}
-.outils{position:sticky;top:0;z-index:5;background:rgba(248,247,245,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--trait);padding:14px 0}.outils-inner{display:flex;gap:12px;align-items:center}.recherche{position:relative;flex:1;max-width:540px}.recherche svg{position:absolute;left:14px;top:13px;width:18px;height:18px;stroke:var(--sourdine);fill:none}.recherche input{width:100%;height:44px;border:1px solid var(--trait);background:var(--surface);padding:0 42px;border-radius:8px;color:var(--noir)}.recherche input:focus{border-color:var(--rouge)}.effacer{position:absolute;right:10px;top:8px;border:0;background:none;color:var(--sourdine);cursor:pointer;font-size:20px;display:none}.effacer.visible{display:block}.select{height:44px;border:1px solid var(--trait);background:var(--surface);padding:0 12px;color:var(--noir);border-radius:8px;min-width:150px}
-main{padding:42px 0 82px}.layout{display:grid;grid-template-columns:270px 1fr;gap:48px;align-items:start}.navigation{position:sticky;top:86px}.navigation h2{font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;color:var(--sourdine)}.groupes{list-style:none;padding:6px;margin:0;display:flex;flex-direction:column;gap:2px;border:1px solid var(--trait);border-radius:var(--rayon);background:var(--surface)}.groupe{width:100%;padding:12px 14px;text-align:left;background:none;border:0;border-radius:9px;color:var(--sourdine);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font:400 15px var(--geo);transition:.15s}.groupe:hover{color:var(--noir);background:var(--papier)}.groupe.actif{color:var(--rouge);font-weight:600;background:var(--rouge-teinte)}.groupe small{font:11px var(--mono);opacity:.7}.intro{border-bottom:1px solid var(--trait);padding-bottom:25px;margin-bottom:0}.intro h2{font:500 2rem/1.15 var(--geo);letter-spacing:-.025em;margin:0 0 8px}.intro p{color:var(--sourdine);margin:0;max-width:680px}.resultats{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:22px 0 10px;color:var(--sourdine);font:11px var(--mono);letter-spacing:.06em;text-transform:uppercase}.liste{list-style:none;padding:0;margin:0}.ressource{display:flex;gap:16px;align-items:flex-start;text-decoration:none;color:inherit;padding:20px 14px;border-bottom:1px solid var(--trait);transition:background .16s,padding .16s}.ressource:hover{background:var(--surface);padding-left:20px}.picto{flex:0 0 40px;width:40px;height:40px;border-radius:10px;background:var(--rouge-teinte);color:var(--rouge);display:flex;align-items:center;justify-content:center}.picto svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.corps{min-width:0}.meta{display:flex;gap:9px;flex-wrap:wrap;align-items:center;color:var(--sourdine);font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}.meta .genre{color:var(--rouge);font-weight:600}.meta .externe{border:1px solid var(--trait);border-radius:20px;padding:1px 8px;font-weight:500}.ressource h3{font:500 1.2rem/1.25 var(--geo);margin:0 0 5px}.ressource p{font-size:.95rem;color:var(--sourdine);margin:0}.ouverture{margin-left:auto;color:var(--rouge);font:18px var(--geo);padding:1px 5px}.vide{padding:42px 14px;border-bottom:1px solid var(--trait);color:var(--sourdine)}.vide strong{display:block;color:var(--noir);font:500 1.15rem var(--geo);margin-bottom:5px}
-footer{background:var(--noir);color:#b6b0ae;padding:40px 0 44px;font-size:.88rem}footer .mention{background:rgba(255,255,255,.1);color:#ff8a75}footer p{max-width:650px;margin:0 0 7px}.apparait{animation:monter .24s ease both}@keyframes monter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}@media(max-width:760px){.enveloppe{padding:0 18px}.entete{margin-bottom:26px}.confidentiel{display:none}.outils-inner{align-items:stretch;flex-wrap:wrap}.recherche{flex-basis:100%;max-width:none}.select{flex:1}.layout{display:block}.navigation{position:static;margin-bottom:34px}.groupes{display:flex;overflow-x:auto;gap:6px;padding:0;border:0;background:none}.groupe{width:auto;white-space:nowrap;border:1px solid var(--trait);border-radius:30px;padding:9px 14px;background:var(--surface)}.groupe.actif{border-color:var(--rouge)}.ressource{padding:18px 4px}.ouverture{display:none}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.bandeau{background:var(--surface);padding:22px 0 28px;border-bottom:1px solid var(--trait)}
+.entete{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}
+.entete .logo-avop{height:48px}
+.confidentiel{font:600 11px var(--texte);letter-spacing:.06em;text-transform:uppercase;color:var(--sourdine)}
+.retour{display:inline-flex;align-items:center;min-height:36px;font:600 11px var(--texte);letter-spacing:.05em;text-transform:uppercase;color:var(--sourdine);text-decoration:none;gap:6px;margin-bottom:14px;border:1px solid var(--trait);border-radius:30px;padding:0 14px}
+.retour:hover{color:var(--rouge-avop);border-color:var(--rouge-avop)}
+h1{font:600 clamp(1.9rem,3.4vw,2.5rem)/1.15 var(--titre);max-width:720px;margin:14px 0 10px}
+.chapo{color:var(--sourdine);font-size:1.02rem;max-width:640px;margin:0}
+.chapo strong{color:var(--encre);font-weight:600}
+
+.outils{position:sticky;top:0;z-index:5;background:rgba(244,243,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--trait);padding:14px 0}
+.outils-inner{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.recherche{position:relative;flex:1 1 260px;max-width:460px}
+.recherche svg{position:absolute;left:14px;top:17px;width:18px;height:18px;stroke:var(--sourdine);fill:none}
+.recherche input{width:100%;height:48px;border:1px solid var(--trait);background:var(--surface);padding:0 46px;border-radius:var(--rayon);color:var(--encre)}
+.recherche input:focus-visible{border-color:var(--rouge-avop)}
+.effacer{position:absolute;right:2px;top:2px;width:44px;height:44px;border:0;background:none;color:var(--sourdine);cursor:pointer;font-size:20px;display:none;border-radius:50%}
+.effacer.visible{display:block}
+.select{height:44px;border:1px solid var(--trait);background:var(--surface);padding:0 12px;color:var(--encre);border-radius:var(--rayon);min-width:150px}
+.bouton-reinit{height:44px;padding:0 16px;white-space:nowrap}
+
+main{padding:38px 0 82px}
+.layout{display:grid;grid-template-columns:270px 1fr;gap:48px;align-items:start}
+.navigation{position:sticky;top:82px}
+.navigation h2{font:600 11px var(--texte);letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px;color:var(--sourdine)}
+.tous-chantiers{display:flex;width:100%;justify-content:space-between;align-items:center;gap:10px;min-height:44px;padding:0 14px;text-align:left;background:var(--surface);border:1px solid var(--trait);border-radius:var(--rayon);color:var(--encre);cursor:pointer;font:600 14px var(--texte);margin-bottom:16px}
+.tous-chantiers.actif{color:var(--rouge-avop);border-color:var(--rouge-avop);background:var(--rouge-teinte)}
+.tous-chantiers small{font:11px var(--texte);opacity:.7}
+.axe-groupe{margin-bottom:16px}
+.axe-groupe > p{display:flex;align-items:baseline;gap:8px;font:700 11px var(--titre);letter-spacing:.06em;text-transform:uppercase;color:var(--sourdine);margin:0 0 6px;padding:0 4px}
+.axe-groupe > p .n{color:var(--rouge-avop)}
+.groupes{list-style:none;padding:6px;margin:0;display:flex;flex-direction:column;gap:2px;border:1px solid var(--trait);border-radius:var(--rayon-lg);background:var(--surface)}
+.groupe{width:100%;min-height:44px;padding:8px 12px;text-align:left;background:none;border:0;border-radius:6px;color:var(--sourdine);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font:400 14.5px var(--texte);transition:.15s}
+.groupe:hover{color:var(--encre);background:var(--papier)}
+.groupe.actif{color:var(--rouge-avop);font-weight:600;background:var(--rouge-teinte)}
+.groupe small{font:11px var(--texte);opacity:.7}
+
+.intro{border-bottom:1px solid var(--trait);padding-bottom:25px}
+.intro h2{font:600 1.9rem/1.15 var(--titre);margin:0 0 8px}
+.intro p{color:var(--sourdine);margin:0;max-width:680px}
+.resultats{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:20px 0 10px;color:var(--sourdine);font:700 11px var(--titre);letter-spacing:.05em;text-transform:uppercase}
+.liste{list-style:none;padding:0;margin:0}
+.ressource{display:flex;gap:16px;align-items:flex-start;padding:22px 8px;border-bottom:1px solid var(--trait)}
+.ressource.cible{background:var(--rouge-teinte);border-radius:var(--rayon-lg);outline:2px solid var(--rouge-avop);outline-offset:-2px}
+.picto{flex:0 0 42px;width:42px;height:42px;border-radius:var(--rayon);background:var(--rouge-teinte);color:var(--rouge-avop);display:flex;align-items:center;justify-content:center}
+.picto svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.corps{min-width:0;flex:1}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:var(--sourdine);font:700 10.5px var(--titre);letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.meta .genre{color:var(--rouge-avop)}
+.meta .externe{border:1px solid var(--trait);border-radius:20px;padding:1px 8px;font-weight:700}
+.ressource h3{font:600 1.15rem/1.3 var(--titre);margin:0 0 6px}
+.ressource h3 a{color:inherit;text-decoration:none}
+.ressource h3 a:hover{color:var(--rouge-avop);text-decoration:underline}
+.ressource > .corps > p{font-size:.96rem;color:var(--sourdine);margin:0 0 10px;max-width:640px}
+.ressource-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.lien-ouvrir{display:inline-flex;align-items:center;gap:5px;min-height:44px;font:600 12.5px var(--texte);color:var(--rouge-avop);text-decoration:none}
+.lien-ouvrir:hover{text-decoration:underline}
+.lien-copier{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;background:none;border:1px solid var(--trait);border-radius:20px;color:var(--sourdine);font:600 12px var(--texte);cursor:pointer}
+.lien-copier:hover{border-color:var(--rouge-avop);color:var(--rouge-avop)}
+.lien-copier[data-copie]{color:var(--vert-texte);border-color:var(--vert-texte)}
+.vide{padding:44px 14px;border-bottom:1px solid var(--trait);color:var(--sourdine)}
+.vide strong{display:block;color:var(--encre);font:600 1.15rem var(--titre);margin-bottom:5px}
+
+@media(max-width:760px){
+  .entete{margin-bottom:22px}
+  .confidentiel{display:none}
+  .outils-inner{align-items:stretch}
+  .recherche{flex-basis:100%;max-width:none}
+  .select{flex:1 1 45%}
+  .layout{display:block}
+  .navigation{position:static;margin-bottom:30px}
+  .groupes{display:flex;overflow-x:auto;gap:6px;padding:0;border:0;background:none}
+  .groupe{width:auto;white-space:nowrap;border:1px solid var(--trait);border-radius:30px;padding:0 14px;background:var(--surface)}
+  .groupe.actif{border-color:var(--rouge-avop)}
+  .ressource{padding:18px 4px}
+}
 </style>
 </head>
 <body>
-<header class="bandeau"><div class="enveloppe"><div class="entete"><div class="marque"><img class="logo-avop" src="assets/AVOP-logo.jpg" alt="AVOP — Association vaudoise des organisations privées pour personnes en difficulté"></div><div class="confidentiel">Situations complexes</div></div><a class="retour" href="index.html">← Retour à l'accueil</a><p class="surtitre">Dispositif cantonal · Ressources</p><h1>Ressources des groupes de travail</h1><p class="chapo">Documents, outils d'autoévaluation, vidéos et présentations à consulter et télécharger — <strong id="stat-groupes">4</strong> groupes, <strong id="stat-ressources">8</strong> ressources.</p></div></header>
-<div class="outils"><div class="enveloppe outils-inner"><div class="recherche"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="search" id="recherche" placeholder="Rechercher une ressource…" aria-label="Rechercher une ressource"><button class="effacer" id="effacer" type="button" aria-label="Effacer la recherche">×</button></div><select class="select" id="filtre" aria-label="Filtrer par type"><option value="tous">Tous les formats</option><option value="document">Documents</option><option value="video">Vidéos</option><option value="presentation">Présentations</option><option value="lien">Liens utiles</option></select><select class="select" id="origine" aria-label="Filtrer par origine"><option value="toutes">Toute origine</option><option value="gt">Produites par le GT</option><option value="externe">Ressources externes</option></select><select class="select" id="tri" aria-label="Trier les ressources"><option value="recent">Plus récentes</option><option value="ancien">Plus anciennes</option></select></div></div>
-<main><div class="enveloppe layout"><nav class="navigation" aria-label="Groupes de travail"><h2>Explorer par groupe</h2><div class="groupes" id="groupes" role="tablist"></div></nav><section aria-live="polite"><div class="intro" id="intro"></div><div class="resultats"><span id="compteur"></span><span>Accès aux documents</span></div><ul class="liste" id="liste"></ul></section></div></main>
-<footer><div class="enveloppe"><p class="mention">Documents de travail</p><p>Ces ressources sont produites par les groupes de travail du dispositif cantonal situations complexes. Elles sont mises à disposition de l'ensemble des professionnel·les des institutions sociales vaudoises concernées.</p><p>Une ressource manque ou un lien ne fonctionne pas ? Contactez l'AVOP.</p></div></footer>
+<header class="bandeau"><div class="enveloppe">
+<div class="entete"><img class="logo-avop" src="assets/AVOP-logo.webp" alt="AVOP — Association vaudoise des organisations privées pour personnes en difficulté"><div class="confidentiel">Situations complexes</div></div>
+<a class="retour" href="index.html">← Retour à l'accueil</a>
+<p class="etiquette">Dispositif cantonal · Ressources</p>
+<h1>Ressources des groupes de travail</h1>
+<p class="chapo">Documents, outils d'autoévaluation, vidéos et présentations à consulter et télécharger — <strong id="stat-groupes">6</strong> groupes, <strong id="stat-ressources">—</strong> ressources.</p>
+</div></header>
+
+<div class="outils"><div class="enveloppe outils-inner">
+<div class="recherche"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="search" id="recherche" placeholder="Rechercher un titre ou une description…" aria-label="Rechercher dans les titres et descriptions"><button class="effacer" id="effacer-recherche" type="button" aria-label="Effacer la recherche">×</button></div>
+<select class="select" id="filtre" aria-label="Filtrer par format"><option value="tous">Tous les formats</option><option value="document">Documents</option><option value="video">Vidéos</option><option value="presentation">Présentations</option><option value="lien">Liens utiles</option></select>
+<select class="select" id="axe" aria-label="Filtrer par axe"><option value="tous">Tous les axes</option></select>
+<select class="select" id="origine" aria-label="Filtrer par origine"><option value="toutes">Toute origine</option><option value="gt">Produites par le GT</option><option value="externe">Ressources externes</option></select>
+<select class="select" id="tri" aria-label="Trier les ressources"><option value="ordre">Ordre du groupe</option><option value="recent">Plus récentes</option><option value="ancien">Plus anciennes</option></select>
+<button class="bouton secondaire bouton-reinit" id="reinitialiser" type="button">Réinitialiser les filtres</button>
+</div></div>
+
+<main><div class="enveloppe layout">
+<nav class="navigation" aria-label="Groupes de travail"><h2>Explorer par chantier</h2>
+<button type="button" class="tous-chantiers" id="bouton-tous">Tous les chantiers <small id="nb-tous"></small></button>
+<div id="axes-nav"></div>
+</nav>
+<section aria-live="polite"><div class="intro" id="intro"></div><div class="resultats"><span id="compteur"></span><span>Accès aux documents</span></div><ul class="liste" id="liste"></ul></section>
+</div></main>
+
+<footer><div class="enveloppe">
+<div class="co-marque">
+  <img class="logo-avop" src="assets/AVOP-logo.webp" alt="AVOP — Association vaudoise des organisations privées pour personnes en difficulté">
+  <div class="separateur" aria-hidden="true"></div>
+  <!-- TODO : remplacer par le logo officiel de l'État de Vaud fourni par le porteur du projet -->
+  <span class="logo-vaud-attente">+ logo État de Vaud</span>
+</div>
+<p class="etiquette">Documents de travail</p>
+<p>Ces ressources sont produites par les groupes de travail du dispositif cantonal situations complexes. Elles sont mises à disposition de l'ensemble des professionnel·les des institutions sociales vaudoises concernées.</p>
+<p>Une ressource manque ou un lien ne fonctionne pas ? Contactez l'AVOP.</p>
+</div></footer>
+
 <script>
-let GROUPES=[],RESSOURCES=[],actif='mima';
-const GENRES={document:['Document'],video:['Vidéo'],presentation:['Présentation animée'],lien:['Lien utile']};
-const $=id=>document.getElementById(id), groupes=$('groupes'), liste=$('liste'), recherche=$('recherche'), filtre=$('filtre'), tri=$('tri'), filtreOrigine=$('origine');
-function construireGroupes(){groupes.innerHTML='';GROUPES.forEach(g=>{const b=document.createElement('button');b.type='button';b.className='groupe';b.setAttribute('role','tab');b.setAttribute('aria-selected',g.id===actif);b.innerHTML=`<span>${g.nom}</span><small>${RESSOURCES.filter(r=>r.gt===g.id).length}</small>`;b.onclick=()=>{actif=g.id;recherche.value='';rendre()};groupes.appendChild(b)})}
-function carte(r,avecOrigine){const g=GROUPES.find(x=>x.id===r.gt),meta=GENRES[r.genre]||GENRES.document,li=document.createElement('li'),a=document.createElement('a');a.className='ressource apparait';a.href=r.lien||'#';if(/^https?:/.test(r.lien)){a.target='_blank';a.rel='noopener'}a.innerHTML=`<span class="picto" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M10 8.5 16 12l-6 3.5z"></path></svg></span><span class="corps"><span class="meta"><span class="genre">${meta[0]}</span>${r.date?`<span>/</span><span>${r.date}</span>`:''}${r.duree?`<span>/</span><span>${r.duree}</span>`:''}${avecOrigine?`<span>/</span><span>${g.nom}</span>`:''}${r.origine==='externe'?'<span class="externe">Ressource externe</span>':''}</span><h3>${r.titre}</h3><p>${r.texte}</p></span><span class="ouverture" aria-hidden="true">↗</span>`;li.appendChild(a);return li}
-function vide(t,d){liste.innerHTML=`<li class="vide"><strong>${t}</strong>${d}</li>`}function rendre(){const q=recherche.value.trim().toLowerCase(),type=filtre.value;document.querySelectorAll('.groupe').forEach((b,i)=>{b.classList.toggle('actif',GROUPES[i].id===actif&&!q);b.setAttribute('aria-selected',GROUPES[i].id===actif&&!q)});let items=RESSOURCES.filter(r=>(q?`${r.titre} ${r.texte} ${GENRES[r.genre]?.[0]}`.toLowerCase().includes(q):r.gt===actif)&&(type==='tous'||r.genre===type)&&(filtreOrigine.value==='toutes'||r.origine===filtreOrigine.value));items.sort((a,b)=>tri.value==='recent'?b.date.localeCompare(a.date):a.date.localeCompare(b.date));$('effacer').classList.toggle('visible',!!q);$('intro').innerHTML=q?'<h2>Résultats de recherche</h2><p>Toutes les ressources correspondant à votre recherche.</p>':`<h2>${GROUPES.find(g=>g.id===actif).nom}</h2><p>${GROUPES.find(g=>g.id===actif).intro}</p>`;$('compteur').textContent=`${items.length} ressource${items.length!==1?'s':''}`;liste.innerHTML='';if(!items.length){vide(q?'Aucun résultat':'Pas encore de ressource ici',q?'Essayez un autre terme ou réinitialisez les filtres.':'Les documents de ce groupe seront déposés au fil des séances.');return}items.forEach(r=>liste.appendChild(carte(r,!!q)))}
-$('effacer').onclick=()=>{recherche.value='';filtre.value='tous';rendre();recherche.focus()};[recherche,filtre,tri,filtreOrigine].forEach(x=>x.addEventListener('input',rendre));
+let AXES=[],GROUPES=[],RESSOURCES=[],actif='tous';
+const GENRES={document:['Document','M9 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M9 3v5h5 M9 13h6 M9 17h6'],video:['Vidéo','M23 7l-7 5 7 5V7z M1 5h15v14H1z'],presentation:['Présentation','M3 4h18v12H3z M8 20h8 M12 16v4'],lien:['Lien utile','M10 14 21 3 M21 3h-6 M21 3v6 M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6']};
+const $=id=>document.getElementById(id), liste=$('liste'), recherche=$('recherche'), filtre=$('filtre'), tri=$('tri'), filtreOrigine=$('origine'), filtreAxe=$('axe'), axesNav=$('axes-nav'), boutonTous=$('bouton-tous');
+
+function axeDe(gtId){const g=GROUPES.find(x=>x.id===gtId);return g?g.axe:null}
+
+function correspond(r,{ignorer}={}){
+  const q=recherche.value.trim().toLowerCase();
+  const matchGroupe = q || actif==='tous' ? true : r.gt===actif;
+  if(!matchGroupe) return false;
+  if(q && !`${r.titre} ${r.texte}`.toLowerCase().includes(q)) return false;
+  if(ignorer!=='format' && filtre.value!=='tous' && r.genre!==filtre.value) return false;
+  if(ignorer!=='origine' && filtreOrigine.value!=='toutes' && r.origine!==filtreOrigine.value) return false;
+  if(ignorer!=='axe' && filtreAxe.value!=='tous' && axeDe(r.gt)!==filtreAxe.value) return false;
+  return true;
+}
+
+function construireNav(){
+  axesNav.innerHTML='';
+  AXES.forEach(axe=>{
+    const bloc=document.createElement('div');bloc.className='axe-groupe';
+    bloc.innerHTML=`<p><span class="n">${String(axe.numero).padStart(2,'0')}</span> ${axe.nom}</p>`;
+    const ul=document.createElement('ul');ul.className='groupes';ul.setAttribute('role','tablist');
+    GROUPES.filter(g=>g.axe===axe.id).forEach(g=>{
+      const li=document.createElement('li');
+      const b=document.createElement('button');b.type='button';b.className='groupe';b.setAttribute('role','tab');
+      b.innerHTML=`<span>${g.nom}</span><small>${RESSOURCES.filter(r=>r.gt===g.id).length}</small>`;
+      b.onclick=()=>{actif=g.id;recherche.value='';rendre()};
+      li.appendChild(b);ul.appendChild(li);
+    });
+    bloc.appendChild(ul);axesNav.appendChild(bloc);
+  });
+}
+
+function majEtatsNav(){
+  const q=recherche.value.trim();
+  boutonTous.classList.toggle('actif',actif==='tous'&&!q);
+  $('nb-tous').textContent=RESSOURCES.length;
+  document.querySelectorAll('.groupe').forEach(b=>{
+    const nom=b.querySelector('span').textContent;
+    const g=GROUPES.find(x=>x.nom===nom);
+    const estActif=g&&g.id===actif&&!q;
+    b.classList.toggle('actif',estActif);b.setAttribute('aria-selected',String(!!estActif));
+  });
+}
+
+function majOptions(){
+  const compter=(dim,val)=>RESSOURCES.filter(r=>correspond(r,{ignorer:dim})&&(dim==='format'?r.genre===val:dim==='origine'?r.origine===val:axeDe(r.gt)===val)).length;
+  [...filtre.options].forEach(o=>{if(o.value==='tous')return;const base={document:'Documents',video:'Vidéos',presentation:'Présentations',lien:'Liens utiles'}[o.value];o.textContent=`${base} (${compter('format',o.value)})`});
+  [...filtreOrigine.options].forEach(o=>{if(o.value==='toutes')return;const base={gt:'Produites par le GT',externe:'Ressources externes'}[o.value];o.textContent=`${base} (${compter('origine',o.value)})`});
+  [...filtreAxe.options].forEach(o=>{if(o.value==='tous')return;const axe=AXES.find(a=>a.id===o.value);o.textContent=`${axe.nom} (${compter('axe',o.value)})`});
+}
+
+function carte(r,avecGroupe){
+  const g=GROUPES.find(x=>x.id===r.gt),meta=GENRES[r.genre]||GENRES.document,li=document.createElement('li');li.className='ressource';li.id=`res-${r.id}`;
+  const permalien=`${location.origin}${location.pathname}?id=${encodeURIComponent(r.id)}`;
+  const externe=/^https?:/.test(r.lien);
+  li.innerHTML=`<span class="picto" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="${meta[1]}"></path></svg></span>
+  <div class="corps">
+    <div class="meta"><span class="genre">${meta[0]}</span>${r.date?`<span>/</span><span>${r.date}</span>`:''}${r.duree?`<span>/</span><span>${r.duree}</span>`:''}${r.poids?`<span>/</span><span>${r.poids}</span>`:''}${avecGroupe&&g?`<span>/</span><span>${g.nom}</span>`:''}${r.origine==='externe'?'<span class="externe">Ressource externe</span>':''}</div>
+    <h3><a href="${r.lien||'#'}"${externe?' target="_blank" rel="noopener"':''}>${r.titre}</a></h3>
+    <p>${r.texte||''}</p>
+    <div class="ressource-actions">
+      <a class="lien-ouvrir" href="${r.lien||'#'}"${externe?' target="_blank" rel="noopener"':''}>Ouvrir ${externe?'↗':''}</a>
+      <button type="button" class="lien-copier" data-permalien="${permalien}">Copier le lien permanent</button>
+    </div>
+  </div>`;
+  li.querySelector('.lien-copier').addEventListener('click',async(e)=>{
+    const b=e.currentTarget;
+    try{await navigator.clipboard.writeText(b.dataset.permalien);b.textContent='Lien copié ✓';b.setAttribute('data-copie','');}
+    catch{b.textContent='Copie impossible';}
+    setTimeout(()=>{b.textContent='Copier le lien permanent';b.removeAttribute('data-copie')},2500);
+  });
+  return li;
+}
+
+function vide(t,d){liste.innerHTML=`<li class="vide"><strong>${t}</strong>${d}</li>`}
+
+function rendre(){
+  const q=recherche.value.trim();
+  majEtatsNav();majOptions();
+  let items=RESSOURCES.filter(r=>correspond(r));
+  items.sort((a,b)=>{
+    if(tri.value==='recent') return (b.date||'').localeCompare(a.date||'');
+    if(tri.value==='ancien') return (a.date||'').localeCompare(b.date||'');
+    return (a.ordre??999)-(b.ordre??999);
+  });
+  $('effacer-recherche').classList.toggle('visible',!!q);
+  $('intro').innerHTML = q
+    ? '<h2>Résultats de recherche</h2><p>Toutes les ressources correspondant à votre recherche, tous chantiers confondus.</p>'
+    : actif==='tous'
+      ? '<h2>Tous les chantiers</h2><p>L\'ensemble des ressources publiées par les six groupes de travail.</p>'
+      : (()=>{const g=GROUPES.find(x=>x.id===actif);return `<h2>${g.nom}</h2><p>${g.intro}</p>`})();
+  $('compteur').textContent=`${items.length} ressource${items.length!==1?'s':''}`;
+  liste.innerHTML='';
+  if(!items.length){
+    const g=actif!=='tous'&&!q?GROUPES.find(x=>x.id===actif):null;
+    vide(q?'Aucun résultat':(g?'Pas encore de ressource ici':'Aucune ressource'),
+         q?'Essayez un autre terme ou réinitialisez les filtres.':(g?'Les documents de ce chantier seront déposés au fil des séances.':'Modifiez ou réinitialisez les filtres.'));
+    return;
+  }
+  items.forEach(r=>liste.appendChild(carte(r,!!q||actif==='tous')));
+}
+
+boutonTous.addEventListener('click',()=>{actif='tous';recherche.value='';rendre()});
+$('effacer-recherche').addEventListener('click',()=>{recherche.value='';recherche.focus();rendre()});
+$('reinitialiser').addEventListener('click',()=>{
+  recherche.value='';filtre.value='tous';filtreOrigine.value='toutes';filtreAxe.value='tous';tri.value='ordre';actif='tous';rendre();
+});
+[recherche,filtre,tri,filtreOrigine,filtreAxe].forEach(x=>x.addEventListener('input',rendre));
+
 Promise.all([
   fetch('data/config.json').then(r=>r.json()),
   fetch('data/groupes.json').then(r=>r.json())
-]).then(([config,groupesData])=>{
-  GROUPES=groupesData.groupes;
+]).then(([config,data])=>{
+  AXES=data.axes.slice().sort((a,b)=>a.numero-b.numero);GROUPES=data.groupes;
+  filtreAxe.innerHTML='<option value="tous">Tous les axes</option>'+AXES.map(a=>`<option value="${a.id}">${a.nom}</option>`).join('');
   return fetch(`${config.supabaseUrl}/rest/v1/ressources?select=*`,{headers:{apikey:config.supabaseAnonKey,Authorization:`Bearer ${config.supabaseAnonKey}`}}).then(r=>r.json());
 }).then(ressources=>{
   RESSOURCES=ressources;
-  const params=new URLSearchParams(location.search),paramGt=params.get('gt'),paramOrigine=params.get('origine');
-  actif=GROUPES.some(g=>g.id===paramGt)?paramGt:GROUPES[0]?.id;
-  if(paramOrigine==='gt'||paramOrigine==='externe')filtreOrigine.value=paramOrigine;
-  $('stat-groupes').textContent=GROUPES.length;$('stat-ressources').textContent=RESSOURCES.length;construireGroupes();rendre();
+  const params=new URLSearchParams(location.search),paramId=params.get('id'),paramGt=params.get('gt'),paramOrigine=params.get('origine');
+  construireNav();
+  if(paramId){
+    const cible=RESSOURCES.find(r=>r.id===paramId);
+    actif = cible ? cible.gt : 'tous';
+  } else {
+    actif = GROUPES.some(g=>g.id===paramGt) ? paramGt : 'tous';
+  }
+  if(paramOrigine==='gt'||paramOrigine==='externe') filtreOrigine.value=paramOrigine;
+  $('stat-groupes').textContent=GROUPES.length;$('stat-ressources').textContent=RESSOURCES.length;
+  rendre();
+  if(paramId){
+    const el=document.getElementById(`res-${paramId}`);
+    if(el){el.classList.add('cible');el.scrollIntoView({block:'center'});el.setAttribute('tabindex','-1');el.focus({preventScroll:true})}
+  }
 }).catch(()=>{vide('Impossible de charger les ressources','Réessayez dans quelques instants.')});
-</script></body></html>
+</script>
+</body></html>
