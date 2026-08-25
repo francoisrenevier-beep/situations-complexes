@@ -1,0 +1,85 @@
+/* Système visuel commun aux trois pages du site — dispositif cantonal
+   situations complexes. Modifier ici pour que le changement se propage
+   partout plutôt que de dupliquer les règles dans chaque page. */
+
+:root{
+  /* Palette — cinq couleurs nommées */
+  --rouge-avop:#a50021;        /* AVOP — identité, actions, numérotation signature */
+  --rouge-teinte:rgba(165,0,33,.08);
+  --vert-vaud:#00954c;         /* État de Vaud — coportage, usage réservé (TODO: vérifier Pantone 355 C officiel) */
+  --vert-teinte:rgba(0,149,76,.1);
+  --vert-texte:#006b37;        /* variante foncée de vert-vaud, conforme AA en texte sur fond clair */
+  --encre:#16201c;             /* texte, quasi-noir à sous-teinte verte */
+  --papier:#f4f3ef;            /* fond, neutre froid — pas de crème */
+  --surface:#ffffff;
+  --trait:#dedbd3;
+  --sourdine:#5b5650;          /* texte secondaire, AA sur papier/surface */
+
+  --titre:"Space Grotesk",system-ui,sans-serif;
+  --texte:"Source Sans 3",system-ui,sans-serif;
+
+  --rayon:4px;
+  --rayon-lg:8px;
+  --ombre:0 8px 24px -16px rgba(22,32,28,.25);
+  --cible:44px; /* cible tactile minimale */
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papier);color:var(--encre);font:400 17px/1.6 var(--texte)}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--titre);letter-spacing:-.01em;margin:0}
+:focus-visible{outline:3px solid var(--rouge-avop);outline-offset:3px}
+
+.enveloppe{max-width:1120px;margin:auto;padding:0 28px}
+@media(max-width:760px){.enveloppe{padding:0 18px}}
+
+/* Étiquettes courtes (surtitres, badges de statut, méta) */
+.etiquette{display:inline-flex;align-items:center;gap:6px;font:600 11.5px/1 var(--texte);letter-spacing:.08em;text-transform:uppercase;color:var(--rouge-avop);background:var(--rouge-teinte);border-radius:20px;padding:6px 12px}
+.etiquette.vert{color:var(--vert-texte);background:var(--vert-teinte)}
+.etiquette.neutre{color:var(--sourdine);background:var(--surface);border:1px solid var(--trait)}
+
+/* Numérotation signature : grands chiffres tabulaires, base du concept visuel */
+.numero-signature{font:700 1.5rem/1 var(--titre);font-variant-numeric:tabular-nums;color:var(--rouge-avop)}
+
+.bouton{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:var(--cible);background:var(--encre);color:#fff;font:600 14px var(--texte);letter-spacing:.02em;text-decoration:none;padding:0 26px;border:0;border-radius:30px;cursor:pointer;transition:background .15s}
+.bouton:hover{background:var(--rouge-avop)}
+.bouton.secondaire{background:none;color:var(--encre);border:1px solid var(--trait)}
+.bouton.secondaire:hover{background:var(--surface);border-color:var(--rouge-avop);color:var(--rouge-avop)}
+.bouton.danger{background:none;color:var(--rouge-avop);border:1px solid var(--trait);min-height:36px;padding:0 14px}
+.bouton.danger:hover{background:var(--rouge-teinte);border-color:var(--rouge-avop)}
+.bouton[disabled]{opacity:.5;cursor:default}
+.lien-texte{font:600 13.5px var(--texte);letter-spacing:.02em;color:var(--sourdine);text-decoration:underline;text-underline-offset:3px}
+.lien-texte:hover{color:var(--rouge-avop)}
+
+/* Bandeau co-marque : AVOP + État de Vaud, logos côte à côte */
+.co-marque{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.co-marque .logo-avop{height:44px;width:auto}
+.logo-vaud-attente{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;border:1px dashed var(--vert-vaud);border-radius:var(--rayon);background:var(--vert-teinte);color:var(--vert-texte);font:600 11px var(--texte);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.co-marque .separateur{width:1px;height:32px;background:var(--trait)}
+
+footer{background:var(--encre);color:#c9cac6;padding:48px 0 44px}
+footer .enveloppe{display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+footer .etiquette{background:rgba(255,255,255,.1);color:#ff9f8c}
+footer .etiquette.vert{background:rgba(255,255,255,.12);color:#7fd9ab}
+footer p{max-width:660px;margin:0 0 7px;font-size:.92rem;line-height:1.6}
+footer a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+footer .logo-vaud-attente{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#c9cac6}
+footer .co-marque .logo-avop{background:#fff;padding:8px 12px;border-radius:var(--rayon)}
+footer .co-marque .separateur{background:rgba(255,255,255,.2)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+@media print{
+  body{background:#fff;color:#000}
+  .outils,.navigation,.nav-entete,.no-print,.bouton,.groupes,.actions{display:none!important}
+  a{color:#000;text-decoration:underline}
+  a[href^="http"]:after{content:" (" attr(href) ")";font-size:.8em;color:#333}
+  .enveloppe{max-width:none;padding:0}
+  .etiquette{border:1px solid #000;background:none!important;color:#000!important}
+  footer{background:#fff;color:#000;border-top:1px solid #000}
+  footer a{color:#000}
+  .layout{display:block!important}
+}
