@@ -74,7 +74,7 @@ footer .co-marque .separateur{background:rgba(255,255,255,.2)}
 
 @media print{
   body{background:#fff;color:#000}
-  .outils,.navigation,.nav-entete,.no-print,.bouton,.groupes,.actions{display:none!important}
+  .outils,.navigation,.nav-entete,.no-print,.bouton,.groupes,.actions,.lien-copier,.effacer{display:none!important}
   a{color:#000;text-decoration:underline}
   a[href^="http"]:after{content:" (" attr(href) ")";font-size:.8em;color:#333}
   .enveloppe{max-width:none;padding:0}
