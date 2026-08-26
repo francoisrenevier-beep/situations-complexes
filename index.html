@@ -56,15 +56,18 @@ section.bloc.contraste{background:var(--surface)}
 .axe-icone svg{width:26px;height:26px;stroke:var(--rouge-avop);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .axe-label{font:700 11.5px var(--titre);letter-spacing:.08em;text-transform:uppercase;color:var(--rouge-avop);margin:0 0 6px}
 .axe-col h3{font:600 1.3rem/1.25 var(--titre);margin:0 0 24px}
-.chantiers-mini{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:26px}
-.chantiers-mini a{display:flex;gap:12px;align-items:flex-start;text-decoration:none;color:inherit}
-.chantiers-mini .num{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--rouge-avop);color:var(--rouge-avop);font:700 .74rem var(--titre);font-variant-numeric:tabular-nums;margin-top:1px}
+.chantiers-mini{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.chantiers-mini a{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--trait);border-radius:var(--rayon-lg);padding:14px 16px;transition:.15s}
+.chantiers-mini a:hover,.chantiers-mini a:focus-visible{border-color:var(--rouge-avop);box-shadow:var(--ombre);transform:translateY(-1px)}
+.chantiers-mini .num{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--rouge-avop);color:var(--rouge-avop);font:700 .74rem var(--titre);font-variant-numeric:tabular-nums}
 .chantiers-mini a:hover .num{background:var(--rouge-avop);color:#fff}
-.chantiers-mini .corps{min-width:0}
-.chantiers-mini .txt{display:block;font:600 1.1rem/1.35 var(--titre);color:var(--encre)}
+.chantiers-mini .corps{min-width:0;flex:1}
+.chantiers-mini .txt{display:block;font:600 1.05rem/1.35 var(--titre);color:var(--encre)}
 .chantiers-mini a:hover .txt{color:var(--rouge-avop)}
-.chantiers-mini .etat{display:block;margin-top:5px;font:500 13.5px var(--texte);color:var(--sourdine)}
+.chantiers-mini .etat{display:block;margin-top:4px;font:500 13.5px var(--texte);color:var(--sourdine)}
 .chantiers-mini .etat.dispo{color:var(--vert-texte)}
+.chantiers-mini .fleche{flex:0 0 auto;width:18px;height:18px;stroke:var(--trait);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:.15s}
+.chantiers-mini a:hover .fleche{stroke:var(--rouge-avop);transform:translateX(3px)}
 .liens-complementaires{margin-top:44px;display:flex;flex-wrap:wrap;gap:8px 28px}
 
 .dispositif-corps{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
@@ -196,7 +199,7 @@ Promise.all([
       const li=document.createElement('li');
       const a=document.createElement('a');a.href=`ressources.html?gt=${g.id}`;
       const etat=nb>0?`<span class="etat dispo">${nb} ressource${nb!==1?'s':''}</span>`:`<span class="etat">À venir</span>`;
-      a.innerHTML=`<span class="num">${pad(g.numero)}</span><span class="corps"><span class="txt">${g.nom}</span>${etat}</span>`;
+      a.innerHTML=`<span class="num">${pad(g.numero)}</span><span class="corps"><span class="txt">${g.nom}</span>${etat}</span><svg class="fleche" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>`;
       li.appendChild(a);ul.appendChild(li);
     });
     col.appendChild(ul);sommaire.appendChild(col);
