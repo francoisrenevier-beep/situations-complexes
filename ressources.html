@@ -53,15 +53,19 @@ main{padding:38px 0 82px}
 .intro h2{font:600 1.9rem/1.15 var(--titre);margin:0 0 8px}
 .intro p{color:var(--sourdine);margin:0;max-width:680px}
 .resultats{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:20px 0 10px;color:var(--sourdine);font:700 11px var(--titre);letter-spacing:.05em;text-transform:uppercase}
-.liste{list-style:none;padding:0;margin:0}
-.ressource{display:flex;gap:16px;align-items:flex-start;padding:22px 8px;border-bottom:1px solid var(--trait)}
-.ressource.cible{background:var(--rouge-teinte);border-radius:var(--rayon-lg);outline:2px solid var(--rouge-avop);outline-offset:-2px}
-.picto{flex:0 0 42px;width:42px;height:42px;border-radius:var(--rayon);background:var(--rouge-teinte);color:var(--rouge-avop);display:flex;align-items:center;justify-content:center}
+.liste{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.ressource{display:flex;gap:16px;align-items:flex-start;padding:20px 18px;border:1px solid var(--trait);border-radius:var(--rayon-lg);background:var(--surface)}
+.ressource.origine-gt{background:var(--rouge-teinte);border-color:rgba(165,0,33,.14)}
+.ressource.origine-externe{background:var(--surface)}
+.ressource.cible{background:var(--rouge-teinte);outline:2px solid var(--rouge-avop);outline-offset:-2px}
+.picto{flex:0 0 42px;width:42px;height:42px;border-radius:var(--rayon);background:var(--surface);color:var(--rouge-avop);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px var(--trait)}
 .picto svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .corps{min-width:0;flex:1}
 .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:var(--sourdine);font:700 10.5px var(--titre);letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
 .meta .genre{color:var(--rouge-avop)}
-.meta .externe{border:1px solid var(--trait);border-radius:20px;padding:1px 8px;font-weight:700}
+.badge-origine{display:inline-flex;align-items:center;font:700 10px var(--texte);letter-spacing:.05em;text-transform:uppercase;border-radius:20px;padding:2px 9px}
+.badge-origine.gt{color:var(--rouge-avop);background:rgba(165,0,33,.13)}
+.badge-origine.externe{color:var(--sourdine);background:var(--surface);border:1px solid var(--trait)}
 .ressource h3{font:600 1.15rem/1.3 var(--titre);margin:0 0 6px}
 .ressource h3 a{color:inherit;text-decoration:none}
 .ressource h3 a:hover{color:var(--rouge-avop);text-decoration:underline}
@@ -86,7 +90,7 @@ main{padding:38px 0 82px}
   .groupes{display:flex;overflow-x:auto;gap:6px;padding:0;border:0;background:none}
   .groupe{width:auto;white-space:nowrap;border:1px solid var(--trait);border-radius:30px;padding:0 14px;background:var(--surface)}
   .groupe.actif{border-color:var(--rouge-avop)}
-  .ressource{padding:18px 4px}
+  .ressource{padding:16px 14px}
 }
 </style>
 </head>
@@ -189,12 +193,14 @@ function majOptions(){
 }
 
 function carte(r,avecGroupe){
-  const g=trouverGroupe(r.gt),meta=GENRES[r.genre]||GENRES.document,li=document.createElement('li');li.className='ressource';li.id=`res-${r.id}`;
+  const g=trouverGroupe(r.gt),meta=GENRES[r.genre]||GENRES.document,li=document.createElement('li');
+  const estExterne=r.origine==='externe';
+  li.className=`ressource ${estExterne?'origine-externe':'origine-gt'}`;li.id=`res-${r.id}`;
   const permalien=`${location.origin}${location.pathname}?id=${encodeURIComponent(r.id)}`;
   const externe=/^https?:/.test(r.lien);
   li.innerHTML=`<span class="picto" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="${meta[1]}"></path></svg></span>
   <div class="corps">
-    <div class="meta"><span class="genre">${meta[0]}</span>${r.date?`<span>/</span><span>${r.date}</span>`:''}${r.duree?`<span>/</span><span>${r.duree}</span>`:''}${r.poids?`<span>/</span><span>${r.poids}</span>`:''}${avecGroupe&&g?`<span>/</span><span>${g.nom}</span>`:''}${r.origine==='externe'?'<span class="externe">Ressource externe</span>':''}</div>
+    <div class="meta"><span class="badge-origine ${estExterne?'externe':'gt'}">${estExterne?'Ressource externe':'Produit par le GT'}</span><span class="genre">${meta[0]}</span>${r.date?`<span>/</span><span>${r.date}</span>`:''}${r.duree?`<span>/</span><span>${r.duree}</span>`:''}${r.poids?`<span>/</span><span>${r.poids}</span>`:''}${avecGroupe&&g?`<span>/</span><span>${g.nom}</span>`:''}</div>
     <h3><a href="${r.lien||'#'}"${externe?' target="_blank" rel="noopener"':''}>${r.titre}</a></h3>
     <p>${r.texte||''}</p>
     <div class="ressource-actions">
